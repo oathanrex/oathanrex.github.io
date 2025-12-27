@@ -175,29 +175,58 @@
             justify-content: center;
             gap: 8px;
             flex-wrap: wrap;
+            max-width: 900px;
+            margin: 0 auto;
         }
 
         .filter-btn {
-            padding: 7px 16px;
+            padding: 7px 14px;
             background: #21262d;
             border: 1px solid #30363d;
             border-radius: 20px;
             color: #8b949e;
             cursor: pointer;
             transition: all 0.3s ease;
-            font-size: 0.85rem;
+            font-size: 0.8rem;
             font-family: inherit;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .filter-btn i {
+            font-size: 0.75rem;
+        }
+
+        .filter-btn .language-dot {
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            flex-shrink: 0;
         }
 
         .filter-btn:hover {
             border-color: #58a6ff;
             color: #58a6ff;
+            transform: translateY(-1px);
         }
 
         .filter-btn.active {
             background: #58a6ff;
             color: #0d1117;
             border-color: #58a6ff;
+        }
+
+        .filter-btn .count {
+            background: rgba(255,255,255,0.2);
+            padding: 2px 7px;
+            border-radius: 10px;
+            font-size: 0.7rem;
+            font-weight: 600;
+        }
+
+        .filter-btn.active .count {
+            background: rgba(0,0,0,0.25);
         }
 
         /* Section Titles */
@@ -313,6 +342,19 @@
         .language-dot.typescript { background: #2b7489; }
         .language-dot.java { background: #b07219; }
         .language-dot.csharp { background: #178600; }
+        .language-dot.php { background: #4F5D95; }
+        .language-dot.ruby { background: #701516; }
+        .language-dot.go { background: #00ADD8; }
+        .language-dot.rust { background: #dea584; }
+        .language-dot.swift { background: #F05138; }
+        .language-dot.kotlin { background: #A97BFF; }
+        .language-dot.c { background: #555555; }
+        .language-dot.cpp { background: #f34b7d; }
+        .language-dot.shell { background: #89e051; }
+        .language-dot.vue { background: #41b883; }
+        .language-dot.scss { background: #c6538c; }
+        .language-dot.dart { background: #00B4AB; }
+        .language-dot.jupyter { background: #DA5B0B; }
         .language-dot.default { background: #8b949e; }
 
         .project-buttons {
@@ -549,11 +591,8 @@
                 <i class="fas fa-search search-icon"></i>
                 <input type="text" class="search-input" id="searchInput" placeholder="Search projects...">
             </div>
-            <div class="filter-buttons">
-                <button class="filter-btn active" data-filter="all">All</button>
-                <button class="filter-btn" data-filter="html">HTML</button>
-                <button class="filter-btn" data-filter="tool">Tools</button>
-                <button class="filter-btn" data-filter="pages">Live Demos</button>
+            <div class="filter-buttons" id="filterButtons">
+                <!-- Dynamic filters will be generated here -->
             </div>
         </div>
 
@@ -587,7 +626,20 @@
             'Python': 'python',
             'TypeScript': 'typescript',
             'Java': 'java',
-            'C#': 'csharp'
+            'C#': 'csharp',
+            'PHP': 'php',
+            'Ruby': 'ruby',
+            'Go': 'go',
+            'Rust': 'rust',
+            'Swift': 'swift',
+            'Kotlin': 'kotlin',
+            'C': 'c',
+            'C++': 'cpp',
+            'Shell': 'shell',
+            'Vue': 'vue',
+            'SCSS': 'scss',
+            'Dart': 'dart',
+            'Jupyter Notebook': 'jupyter'
         };
 
         // Skeleton loader
@@ -627,18 +679,13 @@
             }
         }
 
-        // Fetch repositories
+        // Fetch ALL repositories (no filtering)
         async function fetchUserRepos() {
             try {
                 const response = await fetch(`${API_BASE}/users/${USERNAME}/repos?per_page=100&sort=updated`);
                 if (!response.ok) throw new Error('Failed to fetch repos');
                 const repos = await response.json();
-                
-                return repos.filter(repo => {
-                    const isHTML = repo.language && repo.language.toLowerCase() === 'html';
-                    const isTool = repo.description && repo.description.toLowerCase().includes('tool');
-                    return isHTML || isTool;
-                });
+                return repos; // Return all repos without filtering
             } catch (error) {
                 console.error('Error fetching repos:', error);
                 return [];
@@ -708,10 +755,89 @@
             `;
         }
 
+        // Generate dynamic filter buttons based on languages
+        function generateFilterButtons() {
+            const filterContainer = document.getElementById('filterButtons');
+            
+            // Count repos by language and category
+            const languageCounts = {};
+            let toolCount = 0;
+            let pagesCount = 0;
+            let noLangCount = 0;
+            
+            allProjects.forEach(repo => {
+                if (repo.language) {
+                    languageCounts[repo.language] = (languageCounts[repo.language] || 0) + 1;
+                } else {
+                    noLangCount++;
+                }
+                if (isTool(repo)) toolCount++;
+                if (repo.has_pages) pagesCount++;
+            });
+
+            // Sort languages by count (descending)
+            const sortedLanguages = Object.entries(languageCounts)
+                .sort((a, b) => b[1] - a[1]);
+
+            let buttonsHTML = `
+                <button class="filter-btn active" data-filter="all">
+                    <i class="fas fa-layer-group"></i> All <span class="count">${allProjects.length}</span>
+                </button>
+            `;
+
+            // Add language buttons
+            sortedLanguages.forEach(([lang, count]) => {
+                const langClass = languageColors[lang] || 'default';
+                buttonsHTML += `
+                    <button class="filter-btn" data-filter="lang-${lang.toLowerCase()}">
+                        <span class="language-dot ${langClass}"></span> ${lang} <span class="count">${count}</span>
+                    </button>
+                `;
+            });
+
+            // Add special category buttons
+            if (toolCount > 0) {
+                buttonsHTML += `
+                    <button class="filter-btn" data-filter="tool">
+                        <i class="fas fa-wrench"></i> Tools <span class="count">${toolCount}</span>
+                    </button>
+                `;
+            }
+
+            if (pagesCount > 0) {
+                buttonsHTML += `
+                    <button class="filter-btn" data-filter="pages">
+                        <i class="fas fa-globe"></i> Live Demos <span class="count">${pagesCount}</span>
+                    </button>
+                `;
+            }
+
+            if (noLangCount > 0) {
+                buttonsHTML += `
+                    <button class="filter-btn" data-filter="no-lang">
+                        <i class="fas fa-question-circle"></i> Other <span class="count">${noLangCount}</span>
+                    </button>
+                `;
+            }
+
+            filterContainer.innerHTML = buttonsHTML;
+
+            // Add event listeners to new buttons
+            document.querySelectorAll('.filter-btn').forEach(btn => {
+                btn.addEventListener('click', () => {
+                    document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+                    btn.classList.add('active');
+                    currentFilter = btn.dataset.filter;
+                    applyFilters();
+                });
+            });
+        }
+
         function applyFilters() {
             const projectsGrid = document.getElementById('projectsGrid');
             
             let filtered = allProjects.filter(repo => {
+                // Search filter
                 if (searchQuery) {
                     const query = searchQuery.toLowerCase();
                     const matchesName = repo.name.toLowerCase().includes(query);
@@ -720,16 +846,20 @@
                     if (!matchesName && !matchesDesc && !matchesLang) return false;
                 }
 
-                switch (currentFilter) {
-                    case 'html':
-                        return repo.language && repo.language.toLowerCase() === 'html';
-                    case 'tool':
-                        return isTool(repo);
-                    case 'pages':
-                        return repo.has_pages;
-                    default:
-                        return true;
+                // Category filter
+                if (currentFilter === 'all') {
+                    return true;
+                } else if (currentFilter === 'tool') {
+                    return isTool(repo);
+                } else if (currentFilter === 'pages') {
+                    return repo.has_pages;
+                } else if (currentFilter === 'no-lang') {
+                    return !repo.language;
+                } else if (currentFilter.startsWith('lang-')) {
+                    const lang = currentFilter.replace('lang-', '').toLowerCase();
+                    return repo.language && repo.language.toLowerCase() === lang;
                 }
+                return true;
             });
 
             if (filtered.length === 0) {
@@ -796,6 +926,9 @@
             allProjects = repos;
             starredRepos = starred.slice(0, 6);
 
+            // Generate dynamic filter buttons based on repo languages
+            generateFilterButtons();
+            
             applyFilters();
             renderStarredRepos();
             updateStats();
@@ -805,15 +938,6 @@
         document.getElementById('searchInput').addEventListener('input', (e) => {
             searchQuery = e.target.value;
             applyFilters();
-        });
-
-        document.querySelectorAll('.filter-btn').forEach(btn => {
-            btn.addEventListener('click', () => {
-                document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
-                btn.classList.add('active');
-                currentFilter = btn.dataset.filter;
-                applyFilters();
-            });
         });
 
         // Start
