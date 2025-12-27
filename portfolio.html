@@ -1,0 +1,823 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Oathanrex - Portfolio</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Noto Sans', Helvetica, Arial, sans-serif;
+            background-color: #0d1117;
+            color: #c9d1d9;
+            min-height: 100vh;
+            line-height: 1.6;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 40px 20px;
+        }
+
+        /* Profile Header */
+        .profile-header {
+            display: flex;
+            align-items: center;
+            gap: 30px;
+            margin-bottom: 40px;
+            padding: 30px;
+            background: linear-gradient(135deg, #161b22 0%, #1a2332 100%);
+            border: 1px solid #30363d;
+            border-radius: 16px;
+        }
+
+        .profile-avatar {
+            width: 120px;
+            height: 120px;
+            border-radius: 50%;
+            border: 3px solid #58a6ff;
+            object-fit: cover;
+        }
+
+        .profile-info h1 {
+            font-size: 2rem;
+            color: #fff;
+            margin-bottom: 5px;
+        }
+
+        .profile-info .username {
+            color: #8b949e;
+            font-size: 1.1rem;
+            margin-bottom: 12px;
+        }
+
+        .profile-info .bio {
+            color: #c9d1d9;
+            margin-bottom: 15px;
+            max-width: 500px;
+        }
+
+        .profile-links {
+            display: flex;
+            gap: 12px;
+            flex-wrap: wrap;
+        }
+
+        .profile-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            padding: 8px 16px;
+            background: #21262d;
+            border: 1px solid #30363d;
+            border-radius: 8px;
+            color: #c9d1d9;
+            text-decoration: none;
+            font-size: 0.9rem;
+            transition: all 0.3s ease;
+        }
+
+        .profile-link:hover {
+            border-color: #58a6ff;
+            color: #58a6ff;
+            transform: translateY(-2px);
+        }
+
+        .profile-link i {
+            font-size: 1rem;
+        }
+
+        /* Stats Section */
+        .stats-container {
+            display: flex;
+            justify-content: center;
+            gap: 30px;
+            margin-bottom: 35px;
+            flex-wrap: wrap;
+        }
+
+        .stat-item {
+            text-align: center;
+            padding: 20px 30px;
+            background: #161b22;
+            border: 1px solid #30363d;
+            border-radius: 12px;
+            min-width: 120px;
+            transition: all 0.3s ease;
+        }
+
+        .stat-item:hover {
+            border-color: #58a6ff;
+            transform: translateY(-3px);
+        }
+
+        .stat-value {
+            font-size: 1.8rem;
+            font-weight: bold;
+            color: #58a6ff;
+        }
+
+        .stat-label {
+            color: #8b949e;
+            font-size: 0.85rem;
+            margin-top: 4px;
+        }
+
+        /* Search and Filter */
+        .search-filter-section {
+            margin-bottom: 30px;
+        }
+
+        .search-container {
+            position: relative;
+            max-width: 500px;
+            margin: 0 auto 20px;
+        }
+
+        .search-input {
+            width: 100%;
+            padding: 12px 18px 12px 45px;
+            background: #161b22;
+            border: 1px solid #30363d;
+            border-radius: 10px;
+            color: #c9d1d9;
+            font-size: 0.95rem;
+            transition: all 0.3s ease;
+        }
+
+        .search-input:focus {
+            outline: none;
+            border-color: #58a6ff;
+            box-shadow: 0 0 0 3px rgba(88, 166, 255, 0.1);
+        }
+
+        .search-input::placeholder {
+            color: #6e7681;
+        }
+
+        .search-icon {
+            position: absolute;
+            left: 15px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: #6e7681;
+        }
+
+        .filter-buttons {
+            display: flex;
+            justify-content: center;
+            gap: 8px;
+            flex-wrap: wrap;
+        }
+
+        .filter-btn {
+            padding: 7px 16px;
+            background: #21262d;
+            border: 1px solid #30363d;
+            border-radius: 20px;
+            color: #8b949e;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-size: 0.85rem;
+            font-family: inherit;
+        }
+
+        .filter-btn:hover {
+            border-color: #58a6ff;
+            color: #58a6ff;
+        }
+
+        .filter-btn.active {
+            background: #58a6ff;
+            color: #0d1117;
+            border-color: #58a6ff;
+        }
+
+        /* Section Titles */
+        .section-title {
+            font-size: 1.3rem;
+            color: #c9d1d9;
+            margin: 35px 0 18px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding-bottom: 10px;
+            border-bottom: 1px solid #21262d;
+        }
+
+        .section-title i {
+            color: #58a6ff;
+        }
+
+        /* Grid Layout */
+        .projects-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 18px;
+        }
+
+        /* Project Card */
+        .project-card {
+            background: #161b22;
+            border: 1px solid #30363d;
+            border-radius: 12px;
+            padding: 20px;
+            transition: all 0.3s ease;
+            display: flex;
+            flex-direction: column;
+            height: 100%;
+        }
+
+        .project-card:hover {
+            transform: translateY(-4px);
+            border-color: #58a6ff;
+            box-shadow: 0 8px 25px rgba(88, 166, 255, 0.12);
+        }
+
+        .project-name {
+            font-size: 1.1rem;
+            margin-bottom: 10px;
+        }
+
+        .project-name a {
+            color: #58a6ff;
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            flex-wrap: wrap;
+        }
+
+        .project-name a:hover {
+            text-decoration: underline;
+        }
+
+        .project-description {
+            color: #8b949e;
+            font-size: 0.9rem;
+            margin-bottom: 14px;
+            flex-grow: 1;
+            display: -webkit-box;
+            -webkit-line-clamp: 2;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+        }
+
+        .project-meta {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+            margin-bottom: 14px;
+            flex-wrap: wrap;
+        }
+
+        .meta-item {
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            font-size: 0.8rem;
+            color: #8b949e;
+        }
+
+        .star-icon {
+            color: #e3b341;
+        }
+
+        .language-tag {
+            display: inline-flex;
+            align-items: center;
+            gap: 5px;
+            padding: 3px 10px;
+            background: #21262d;
+            border-radius: 12px;
+            font-size: 0.75rem;
+        }
+
+        .language-dot {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+        }
+
+        .language-dot.html { background: #e34c26; }
+        .language-dot.css { background: #563d7c; }
+        .language-dot.javascript { background: #f1e05a; }
+        .language-dot.python { background: #3572A5; }
+        .language-dot.typescript { background: #2b7489; }
+        .language-dot.java { background: #b07219; }
+        .language-dot.csharp { background: #178600; }
+        .language-dot.default { background: #8b949e; }
+
+        .project-buttons {
+            display: flex;
+            gap: 8px;
+            margin-top: auto;
+        }
+
+        .btn {
+            padding: 7px 14px;
+            border-radius: 8px;
+            font-size: 0.85rem;
+            cursor: pointer;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 5px;
+            transition: all 0.3s ease;
+            border: none;
+            font-family: inherit;
+        }
+
+        .btn-primary {
+            background: #238636;
+            color: #fff;
+        }
+
+        .btn-primary:hover {
+            background: #2ea043;
+        }
+
+        .btn-secondary {
+            background: #21262d;
+            color: #c9d1d9;
+            border: 1px solid #30363d;
+        }
+
+        .btn-secondary:hover {
+            border-color: #8b949e;
+        }
+
+        /* Tool Badge */
+        .tool-badge {
+            background: #238636;
+            color: #fff;
+            padding: 2px 7px;
+            border-radius: 8px;
+            font-size: 0.65rem;
+            font-weight: 600;
+            text-transform: uppercase;
+        }
+
+        /* Skeleton Loading */
+        .skeleton-card {
+            background: #161b22;
+            border: 1px solid #30363d;
+            border-radius: 12px;
+            padding: 20px;
+        }
+
+        .skeleton {
+            background: linear-gradient(90deg, #21262d 25%, #30363d 50%, #21262d 75%);
+            background-size: 200% 100%;
+            animation: shimmer 1.5s infinite;
+            border-radius: 6px;
+        }
+
+        .skeleton-title {
+            height: 22px;
+            width: 65%;
+            margin-bottom: 14px;
+        }
+
+        .skeleton-text {
+            height: 12px;
+            width: 100%;
+            margin-bottom: 8px;
+        }
+
+        .skeleton-text:last-of-type {
+            width: 75%;
+        }
+
+        .skeleton-meta {
+            display: flex;
+            gap: 12px;
+            margin-top: 16px;
+        }
+
+        .skeleton-badge {
+            height: 24px;
+            width: 55px;
+            border-radius: 12px;
+        }
+
+        .skeleton-btn {
+            height: 32px;
+            width: 90px;
+            margin-top: 14px;
+            border-radius: 8px;
+        }
+
+        @keyframes shimmer {
+            0% { background-position: -200% 0; }
+            100% { background-position: 200% 0; }
+        }
+
+        /* No Results */
+        .no-results {
+            text-align: center;
+            padding: 50px 20px;
+            color: #8b949e;
+            grid-column: 1 / -1;
+        }
+
+        .no-results i {
+            font-size: 3rem;
+            margin-bottom: 15px;
+            color: #30363d;
+        }
+
+        .no-results h3 {
+            color: #c9d1d9;
+            margin-bottom: 8px;
+            font-size: 1.1rem;
+        }
+
+        /* Footer */
+        .footer {
+            text-align: center;
+            padding: 30px 20px;
+            color: #6e7681;
+            border-top: 1px solid #21262d;
+            margin-top: 50px;
+            font-size: 0.9rem;
+        }
+
+        .footer a {
+            color: #58a6ff;
+            text-decoration: none;
+        }
+
+        .footer a:hover {
+            text-decoration: underline;
+        }
+
+        /* Responsive */
+        @media (max-width: 992px) {
+            .projects-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+            .profile-header {
+                flex-direction: column;
+                text-align: center;
+            }
+            .profile-info .bio {
+                max-width: 100%;
+            }
+            .profile-links {
+                justify-content: center;
+            }
+        }
+
+        @media (max-width: 600px) {
+            .projects-grid {
+                grid-template-columns: 1fr;
+            }
+            .profile-header {
+                padding: 20px;
+            }
+            .profile-avatar {
+                width: 100px;
+                height: 100px;
+            }
+            .profile-info h1 {
+                font-size: 1.5rem;
+            }
+            .stats-container {
+                gap: 15px;
+            }
+            .stat-item {
+                padding: 15px 20px;
+                min-width: 100px;
+            }
+            .stat-value {
+                font-size: 1.5rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- Profile Header -->
+        <header class="profile-header" id="profileHeader">
+            <img src="https://github.com/oathanrex.png" alt="Oathanrex" class="profile-avatar">
+            <div class="profile-info">
+                <h1 id="profileName">Oathanrex</h1>
+                <p class="username">@oathanrex</p>
+                <p class="bio" id="profileBio">Developer | Building useful tools & projects</p>
+                <div class="profile-links">
+                    <a href="https://github.com/oathanrex" target="_blank" class="profile-link">
+                        <i class="fab fa-github"></i> GitHub
+                    </a>
+                    <a href="https://oathanrex.github.io" class="profile-link">
+                        <i class="fas fa-globe"></i> Website
+                    </a>
+                </div>
+            </div>
+        </header>
+
+        <!-- Stats -->
+        <div class="stats-container" id="stats">
+            <div class="stat-item">
+                <div class="stat-value" id="total-repos">-</div>
+                <div class="stat-label">Projects</div>
+            </div>
+            <div class="stat-item">
+                <div class="stat-value" id="total-stars">-</div>
+                <div class="stat-label">Stars</div>
+            </div>
+            <div class="stat-item">
+                <div class="stat-value" id="total-tools">-</div>
+                <div class="stat-label">Tools</div>
+            </div>
+            <div class="stat-item">
+                <div class="stat-value" id="total-demos">-</div>
+                <div class="stat-label">Live Demos</div>
+            </div>
+        </div>
+
+        <!-- Search and Filter -->
+        <div class="search-filter-section">
+            <div class="search-container">
+                <i class="fas fa-search search-icon"></i>
+                <input type="text" class="search-input" id="searchInput" placeholder="Search projects...">
+            </div>
+            <div class="filter-buttons">
+                <button class="filter-btn active" data-filter="all">All</button>
+                <button class="filter-btn" data-filter="html">HTML</button>
+                <button class="filter-btn" data-filter="tool">Tools</button>
+                <button class="filter-btn" data-filter="pages">Live Demos</button>
+            </div>
+        </div>
+
+        <!-- My Projects Section -->
+        <h2 class="section-title"><i class="fas fa-code"></i> My Projects</h2>
+        <div class="projects-grid" id="projectsGrid"></div>
+
+        <!-- Starred Repos Section -->
+        <h2 class="section-title"><i class="fas fa-star"></i> Starred Repos</h2>
+        <div class="projects-grid" id="starredGrid"></div>
+
+        <!-- Footer -->
+        <footer class="footer">
+            <p>Made with <i class="fas fa-heart" style="color: #f85149;"></i> by <a href="https://github.com/oathanrex" target="_blank">Oathanrex</a></p>
+        </footer>
+    </div>
+
+    <script>
+        const USERNAME = 'Oathanrex';
+        const API_BASE = 'https://api.github.com';
+        
+        let allProjects = [];
+        let starredRepos = [];
+        let currentFilter = 'all';
+        let searchQuery = '';
+
+        const languageColors = {
+            'HTML': 'html',
+            'CSS': 'css',
+            'JavaScript': 'javascript',
+            'Python': 'python',
+            'TypeScript': 'typescript',
+            'Java': 'java',
+            'C#': 'csharp'
+        };
+
+        // Skeleton loader
+        function generateSkeletons(count = 6) {
+            let html = '';
+            for (let i = 0; i < count; i++) {
+                html += `
+                    <div class="skeleton-card">
+                        <div class="skeleton skeleton-title"></div>
+                        <div class="skeleton skeleton-text"></div>
+                        <div class="skeleton skeleton-text"></div>
+                        <div class="skeleton-meta">
+                            <div class="skeleton skeleton-badge"></div>
+                            <div class="skeleton skeleton-badge"></div>
+                        </div>
+                        <div class="skeleton skeleton-btn"></div>
+                    </div>
+                `;
+            }
+            return html;
+        }
+
+        function showLoading() {
+            document.getElementById('projectsGrid').innerHTML = generateSkeletons(6);
+            document.getElementById('starredGrid').innerHTML = generateSkeletons(3);
+        }
+
+        // Fetch user profile
+        async function fetchUserProfile() {
+            try {
+                const response = await fetch(`${API_BASE}/users/${USERNAME}`);
+                if (!response.ok) throw new Error('Failed to fetch profile');
+                return await response.json();
+            } catch (error) {
+                console.error('Error fetching profile:', error);
+                return null;
+            }
+        }
+
+        // Fetch repositories
+        async function fetchUserRepos() {
+            try {
+                const response = await fetch(`${API_BASE}/users/${USERNAME}/repos?per_page=100&sort=updated`);
+                if (!response.ok) throw new Error('Failed to fetch repos');
+                const repos = await response.json();
+                
+                return repos.filter(repo => {
+                    const isHTML = repo.language && repo.language.toLowerCase() === 'html';
+                    const isTool = repo.description && repo.description.toLowerCase().includes('tool');
+                    return isHTML || isTool;
+                });
+            } catch (error) {
+                console.error('Error fetching repos:', error);
+                return [];
+            }
+        }
+
+        // Fetch starred repos
+        async function fetchStarredRepos() {
+            try {
+                const response = await fetch(`${API_BASE}/users/${USERNAME}/starred?per_page=9`);
+                if (!response.ok) throw new Error('Failed to fetch starred repos');
+                return await response.json();
+            } catch (error) {
+                console.error('Error fetching starred repos:', error);
+                return [];
+            }
+        }
+
+        function isTool(repo) {
+            return repo.description && repo.description.toLowerCase().includes('tool');
+        }
+
+        function createProjectCard(repo, isStarred = false) {
+            const languageClass = languageColors[repo.language] || 'default';
+            const hasPages = repo.has_pages;
+            const owner = isStarred ? repo.owner.login : USERNAME;
+            const pagesUrl = `https://${owner.toLowerCase()}.github.io/${repo.name}`;
+            const toolBadge = isTool(repo) ? '<span class="tool-badge">Tool</span>' : '';
+
+            return `
+                <div class="project-card" data-language="${repo.language || ''}" data-tool="${isTool(repo)}" data-pages="${hasPages}">
+                    <h3 class="project-name">
+                        <a href="${repo.html_url}" target="_blank">
+                            <i class="fas fa-${isStarred ? 'star' : 'folder'}"></i>
+                            ${repo.name}
+                            ${toolBadge}
+                        </a>
+                    </h3>
+                    <p class="project-description">${repo.description || 'No description'}</p>
+                    <div class="project-meta">
+                        <span class="meta-item">
+                            <i class="fas fa-star star-icon"></i>
+                            ${repo.stargazers_count}
+                        </span>
+                        <span class="meta-item">
+                            <i class="fas fa-code-fork"></i>
+                            ${repo.forks_count}
+                        </span>
+                        ${repo.language ? `
+                            <span class="language-tag">
+                                <span class="language-dot ${languageClass}"></span>
+                                ${repo.language}
+                            </span>
+                        ` : ''}
+                    </div>
+                    <div class="project-buttons">
+                        <a href="${repo.html_url}" target="_blank" class="btn btn-secondary">
+                            <i class="fab fa-github"></i> Code
+                        </a>
+                        ${hasPages ? `
+                            <a href="${pagesUrl}" target="_blank" class="btn btn-primary">
+                                <i class="fas fa-external-link-alt"></i> Demo
+                            </a>
+                        ` : ''}
+                    </div>
+                </div>
+            `;
+        }
+
+        function applyFilters() {
+            const projectsGrid = document.getElementById('projectsGrid');
+            
+            let filtered = allProjects.filter(repo => {
+                if (searchQuery) {
+                    const query = searchQuery.toLowerCase();
+                    const matchesName = repo.name.toLowerCase().includes(query);
+                    const matchesDesc = repo.description && repo.description.toLowerCase().includes(query);
+                    const matchesLang = repo.language && repo.language.toLowerCase().includes(query);
+                    if (!matchesName && !matchesDesc && !matchesLang) return false;
+                }
+
+                switch (currentFilter) {
+                    case 'html':
+                        return repo.language && repo.language.toLowerCase() === 'html';
+                    case 'tool':
+                        return isTool(repo);
+                    case 'pages':
+                        return repo.has_pages;
+                    default:
+                        return true;
+                }
+            });
+
+            if (filtered.length === 0) {
+                projectsGrid.innerHTML = `
+                    <div class="no-results">
+                        <i class="fas fa-search"></i>
+                        <h3>No projects found</h3>
+                        <p>Try different search or filter</p>
+                    </div>
+                `;
+            } else {
+                projectsGrid.innerHTML = filtered.map(repo => createProjectCard(repo)).join('');
+            }
+        }
+
+        function updateStats() {
+            const totalStars = allProjects.reduce((sum, repo) => sum + repo.stargazers_count, 0);
+            const toolCount = allProjects.filter(repo => isTool(repo)).length;
+            const demoCount = allProjects.filter(repo => repo.has_pages).length;
+
+            document.getElementById('total-repos').textContent = allProjects.length;
+            document.getElementById('total-stars').textContent = totalStars;
+            document.getElementById('total-tools').textContent = toolCount;
+            document.getElementById('total-demos').textContent = demoCount;
+        }
+
+        function updateProfile(profile) {
+            if (!profile) return;
+            
+            if (profile.name) {
+                document.getElementById('profileName').textContent = profile.name;
+            }
+            if (profile.bio) {
+                document.getElementById('profileBio').textContent = profile.bio;
+            }
+        }
+
+        function renderStarredRepos() {
+            const starredGrid = document.getElementById('starredGrid');
+            
+            if (starredRepos.length === 0) {
+                starredGrid.innerHTML = `
+                    <div class="no-results">
+                        <i class="fas fa-star"></i>
+                        <h3>No starred repos</h3>
+                        <p>Star some repos to see them here</p>
+                    </div>
+                `;
+            } else {
+                starredGrid.innerHTML = starredRepos.map(repo => createProjectCard(repo, true)).join('');
+            }
+        }
+
+        async function init() {
+            showLoading();
+
+            const [profile, repos, starred] = await Promise.all([
+                fetchUserProfile(),
+                fetchUserRepos(),
+                fetchStarredRepos()
+            ]);
+
+            updateProfile(profile);
+            allProjects = repos;
+            starredRepos = starred.slice(0, 6);
+
+            applyFilters();
+            renderStarredRepos();
+            updateStats();
+        }
+
+        // Event Listeners
+        document.getElementById('searchInput').addEventListener('input', (e) => {
+            searchQuery = e.target.value;
+            applyFilters();
+        });
+
+        document.querySelectorAll('.filter-btn').forEach(btn => {
+            btn.addEventListener('click', () => {
+                document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+                btn.classList.add('active');
+                currentFilter = btn.dataset.filter;
+                applyFilters();
+            });
+        });
+
+        // Start
+        init();
+    </script>
+</body>
+</html>
