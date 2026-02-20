@@ -197,6 +197,13 @@
             justify-content: center;
             font-weight: 800;
             font-size: 16px;
+            overflow: hidden;
+        }
+
+        .logo-icon img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
         }
 
         .nav-links {
@@ -824,6 +831,31 @@
             border-radius: 12px;
         }
 
+        .github-card-fallback {
+            min-height: 120px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: flex-start;
+            gap: 10px;
+            padding: 16px;
+            border-radius: 12px;
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px dashed rgba(255, 255, 255, 0.15);
+        }
+
+        .github-card-fallback p {
+            margin: 0;
+            color: var(--text-muted);
+            font-size: 14px;
+        }
+
+        .github-card-fallback a {
+            color: var(--primary-light);
+            text-decoration: none;
+            font-weight: 600;
+        }
+
         .github-card.full-width {
             grid-column: span 2;
         }
@@ -1083,8 +1115,37 @@
         }
 
         @media (max-width: 768px) {
+            .navbar .container {
+                position: relative;
+            }
+
+            .nav-cta {
+                display: none;
+            }
+
             .nav-links {
                 display: none;
+                position: absolute;
+                top: calc(100% + 12px);
+                left: 16px;
+                right: 16px;
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 14px;
+                padding: 16px;
+                background: rgba(12, 12, 12, 0.96);
+                border: 1px solid rgba(255, 255, 255, 0.08);
+                border-radius: 14px;
+                box-shadow: 0 16px 30px rgba(0, 0, 0, 0.4);
+                z-index: 1001;
+            }
+
+            .nav-links.active {
+                display: flex;
+            }
+
+            .nav-links a {
+                font-size: 16px;
             }
 
             .mobile-toggle {
@@ -1137,11 +1198,13 @@
     <!-- Navigation -->
     <nav class="navbar" id="navbar">
         <div class="container">
-            <a href="#" class="logo">
-                <div class="logo-icon">OR</div>
+            <a href="/" class="logo">
+                <div class="logo-icon">
+                    <img src="https://yt3.googleusercontent.com/7M__4FsQrFMO8uXV3GVtmZMYG1ofOs8PzfGZYTMXcKclneJqpSNdAwBTTMak0DA1qNXAJ_WWjw=s160-c-k-c0x00ffffff-no-rj" alt="OathanRex logo">
+                </div>
                 <span>OathanRex</span>
             </a>
-            <ul class="nav-links">
+            <ul class="nav-links" id="mobileMenu">
                 <li><a href="#about">About</a></li>
                 <li><a href="#skills">Skills</a></li>
                 <li><a href="/projects.html">Projects</a></li>
@@ -1154,7 +1217,7 @@
                     Hire Me
                 </a>
             </div>
-            <button class="mobile-toggle">
+            <button class="mobile-toggle" aria-label="Toggle navigation menu" aria-expanded="false" aria-controls="mobileMenu">
                 <i class="fas fa-bars"></i>
             </button>
         </div>
@@ -1194,10 +1257,10 @@
                 <div class="hero-social">
                     <span>Follow me:</span>
                     <div class="social-links">
-                        <a href="https://github.com/oathanrex" target="_blank" class="social-link">
+	                        <a href="https://github.com/oathanrex" target="_blank" rel="noopener noreferrer" class="social-link">
                             <i class="fab fa-github"></i>
                         </a>
-                        <a href="https://codepen.io/OathanRex" target="_blank" class="social-link">
+	                        <a href="https://codepen.io/OathanRex" target="_blank" rel="noopener noreferrer" class="social-link">
                             <i class="fab fa-codepen"></i>
                         </a>
                         <a href="mailto:oathanrex@gmail.com" class="social-link">
@@ -1283,7 +1346,7 @@
                             </div>
                             <div class="code-line">
                                 <span class="code-line-number">4</span>
-                                <span>&nbsp;&nbsp;<span class="code-property">location</span>: <span class="code-string">"Earth 🌍"</span>,</span>
+	                                <span>&nbsp;&nbsp;<span class="code-property">location</span>: <span class="code-string">"Earth"</span>,</span>
                             </div>
                             <div class="code-line">
                                 <span class="code-line-number">5</span>
@@ -1545,19 +1608,45 @@
 
             <div class="github-grid">
                 <div class="github-card reveal">
-                    <img src="https://github-readme-stats.vercel.app/api?username=oathanrex&amp;theme=tokyonight&amp;hide_border=true&amp;include_all_commits=true&amp;count_private=true&amp;bg_color=16162a" alt="GitHub Stats">
+                    <img
+                        loading="lazy"
+                        src="https://github-readme-stats.vercel.app/api?username=oathanrex&amp;theme=tokyonight&amp;hide_border=true&amp;include_all_commits=true&amp;count_private=true&amp;bg_color=16162a"
+                        data-fallback-src="https://github-readme-stats-sigma-five.vercel.app/api?username=oathanrex&amp;theme=tokyonight&amp;hide_border=true&amp;include_all_commits=true&amp;count_private=true&amp;bg_color=16162a|https://github-profile-summary-cards.vercel.app/api/cards/stats?username=oathanrex&amp;theme=github_dark"
+                        alt="GitHub Stats"
+                    >
                 </div>
                 <div class="github-card reveal">
-                    <img src="https://nirzak-streak-stats.vercel.app/?user=oathanrex&amp;theme=tokyonight&amp;hide_border=true&amp;background=16162a" alt="GitHub Streak">
+                    <img
+                        loading="lazy"
+                        src="https://nirzak-streak-stats.vercel.app/?user=oathanrex&amp;theme=tokyonight&amp;hide_border=true&amp;background=16162a"
+                        data-fallback-src="https://streak-stats.demolab.com?user=oathanrex&amp;theme=tokyonight&amp;hide_border=true"
+                        alt="GitHub Streak"
+                    >
                 </div>
                 <div class="github-card reveal">
-                    <img src="https://github-readme-stats.vercel.app/api/top-langs/?username=oathanrex&amp;theme=tokyonight&amp;hide_border=true&amp;include_all_commits=true&amp;count_private=true&amp;layout=compact&amp;bg_color=16162a" alt="Top Languages">
+                    <img
+                        loading="lazy"
+                        src="https://github-readme-stats.vercel.app/api/top-langs/?username=oathanrex&amp;theme=tokyonight&amp;hide_border=true&amp;include_all_commits=true&amp;count_private=true&amp;layout=compact&amp;bg_color=16162a"
+                        data-fallback-src="https://github-readme-stats-sigma-five.vercel.app/api/top-langs/?username=oathanrex&amp;theme=tokyonight&amp;hide_border=true&amp;layout=compact|https://github-profile-summary-cards.vercel.app/api/cards/repos-per-language?username=oathanrex&amp;theme=github_dark"
+                        alt="Top Languages"
+                    >
                 </div>
                 <div class="github-card reveal">
-                    <img src="https://github-profile-trophy.vercel.app/?username=oathanrex&amp;theme=discord&amp;no-frame=true&amp;no-bg=true&amp;column=4&amp;row=1" alt="Trophies" style="width: 100%;">
+                    <img
+                        loading="lazy"
+                        src="https://github-profile-trophy.vercel.app/?username=oathanrex&amp;theme=discord&amp;no-frame=true&amp;no-bg=true&amp;column=4&amp;row=1"
+                        data-fallback-src="https://github-profile-summary-cards.vercel.app/api/cards/profile-details?username=oathanrex&amp;theme=github_dark"
+                        alt="Trophies"
+                        style="width: 100%;"
+                    >
                 </div>
                 <div class="github-card full-width reveal">
-                    <img src="https://github-readme-activity-graph.vercel.app/graph?username=oathanrex&amp;bg_color=16162a&amp;color=a29bfe&amp;line=6c5ce7&amp;point=ffffff&amp;area=true&amp;hide_border=true" alt="Activity Graph">
+                    <img
+                        loading="lazy"
+                        src="https://github-readme-activity-graph.vercel.app/graph?username=oathanrex&amp;bg_color=16162a&amp;color=a29bfe&amp;line=6c5ce7&amp;point=ffffff&amp;area=true&amp;hide_border=true"
+                        data-fallback-src="https://github-profile-summary-cards.vercel.app/api/cards/profile-details?username=oathanrex&amp;theme=github_dark"
+                        alt="Activity Graph"
+                    >
                 </div>
             </div>
         </div>
@@ -1578,7 +1667,7 @@
                         I'm always open to discussing new opportunities and interesting ideas.
                     </p>
                     <div class="contact-links">
-                        <a href="https://github.com/oathanrex" target="_blank" class="contact-link">
+	                        <a href="https://github.com/oathanrex" target="_blank" rel="noopener noreferrer" class="contact-link">
                             <div class="contact-link-icon">
                                 <i class="fab fa-github"></i>
                             </div>
@@ -1588,7 +1677,7 @@
                             </div>
                             <i class="fas fa-arrow-right contact-link-arrow"></i>
                         </a>
-                        <a href="https://codepen.io/OathanRex" target="_blank" class="contact-link">
+	                        <a href="https://codepen.io/OathanRex" target="_blank" rel="noopener noreferrer" class="contact-link">
                             <div class="contact-link-icon">
                                 <i class="fab fa-codepen"></i>
                             </div>
@@ -1611,13 +1700,13 @@
                     </div>
                 </div>
                 <div class="support-card reveal">
-                    <div class="support-icon">☕</div>
+                    <div class="support-icon">Coffee</div>
                     <h3>Support My Work</h3>
                     <p>
                         If you find my projects helpful, consider buying me a coffee! 
                         Your support helps me create more awesome content.
                     </p>
-                    <a href="https://buymeacoffee.com/oathanrex" target="_blank" class="btn btn-coffee">
+	                    <a href="https://buymeacoffee.com/oathanrex" target="_blank" rel="noopener noreferrer" class="btn btn-coffee">
                         <i class="fas fa-coffee"></i>
                         Buy Me a Coffee
                     </a>
@@ -1631,7 +1720,9 @@
         <div class="container">
             <div class="footer-content">
                 <div class="footer-logo">
-                    <div class="logo-icon">OR</div>
+                    <div class="logo-icon">
+                        <img src="https://yt3.googleusercontent.com/7M__4FsQrFMO8uXV3GVtmZMYG1ofOs8PzfGZYTMXcKclneJqpSNdAwBTTMak0DA1qNXAJ_WWjw=s160-c-k-c0x00ffffff-no-rj" alt="OathanRex logo">
+                    </div>
                     <span>OathanRex</span>
                 </div>
                 <ul class="footer-nav">
@@ -1643,13 +1734,13 @@
             </div>
             <div class="footer-bottom">
                 <p class="footer-copyright">
-                    © 2026 <a href="#">OathanRex</a>. All rights reserved.
+                    &copy; 2026 <a href="/">OathanRex</a>. All rights reserved.
                 </p>
                 <div class="footer-social">
-                    <a href="https://github.com/oathanrex" target="_blank">
+	                    <a href="https://github.com/oathanrex" target="_blank" rel="noopener noreferrer">
                         <i class="fab fa-github"></i>
                     </a>
-                    <a href="https://codepen.io/OathanRex" target="_blank">
+	                    <a href="https://codepen.io/OathanRex" target="_blank" rel="noopener noreferrer">
                         <i class="fab fa-codepen"></i>
                     </a>
                     <a href="mailto:oathanrex@gmail.com">
@@ -1732,14 +1823,15 @@
         // Smooth scroll for anchor links
         document.querySelectorAll('a[href^="#"]').forEach(anchor => {
             anchor.addEventListener('click', function(e) {
+                const href = this.getAttribute('href');
+                if (!href || href === '#') return;
+                const target = document.querySelector(href);
+                if (!target) return;
                 e.preventDefault();
-                const target = document.querySelector(this.getAttribute('href'));
-                if (target) {
-                    target.scrollIntoView({
-                        behavior: 'smooth',
-                        block: 'start'
-                    });
-                }
+                target.scrollIntoView({
+                    behavior: 'smooth',
+                    block: 'start'
+                });
             });
         });
 
@@ -1748,7 +1840,66 @@
         const navLinks = document.querySelector('.nav-links');
 
         mobileToggle.addEventListener('click', () => {
-            navLinks.classList.toggle('active');
+            const isOpen = navLinks.classList.toggle('active');
+            mobileToggle.setAttribute('aria-expanded', String(isOpen));
+        });
+
+        navLinks.querySelectorAll('a').forEach((link) => {
+            link.addEventListener('click', () => {
+                navLinks.classList.remove('active');
+                mobileToggle.setAttribute('aria-expanded', 'false');
+            });
+        });
+
+        window.addEventListener('resize', () => {
+            if (window.innerWidth > 768) {
+                navLinks.classList.remove('active');
+                mobileToggle.setAttribute('aria-expanded', 'false');
+            }
+        });
+
+        function tryNextImageFallback(img) {
+            const rawFallbacks = img.getAttribute('data-fallback-src');
+            if (!rawFallbacks) return false;
+
+            const sources = rawFallbacks
+                .split('|')
+                .map((value) => value.trim())
+                .filter(Boolean);
+
+            const nextIndex = Number(img.dataset.fallbackIndex || '0');
+            if (nextIndex >= sources.length) return false;
+
+            img.dataset.fallbackIndex = String(nextIndex + 1);
+            img.src = sources[nextIndex];
+            return true;
+        }
+
+        // Graceful fallback for third-party GitHub stat images (e.g., 503 from widget providers)
+        document.querySelectorAll('.github-card img').forEach((img) => {
+            img.addEventListener('error', () => {
+                if (tryNextImageFallback(img)) return;
+
+                const card = img.closest('.github-card');
+                if (!card || card.querySelector('.github-card-fallback')) return;
+
+                img.remove();
+                const fallback = document.createElement('div');
+                fallback.className = 'github-card-fallback';
+
+                const message = document.createElement('p');
+                message.textContent = `${img.alt || 'GitHub widget'} is temporarily unavailable (503).`;
+
+                const link = document.createElement('a');
+                link.href = 'https://github.com/oathanrex';
+                link.target = '_blank';
+                link.rel = 'noopener noreferrer';
+                link.textContent = 'View GitHub Profile';
+
+                fallback.appendChild(message);
+                fallback.appendChild(link);
+                card.appendChild(fallback);
+            });
         });
     </script>
 
