@@ -121,6 +121,28 @@ export const CASE_STUDIES: CaseStudy[] = [
     repoUrl: 'https://github.com/oathanrex/image-converter-pro',
     liveUrl: 'https://oathanrex.github.io/image-converter-pro/',
   },
+  {
+    id: 'base64-tools',
+    repoName: 'base64-tools',
+    title: 'Base64 Tools Hub: 35+ In-Browser Converters & Encoders',
+    category: 'Web & Security Utility',
+    year: '2026',
+    summary:
+      'All-in-one offline Base64 utility suite converting text, batch images, PDF, audio, video, CSS Data URIs, and JWT/Basic-Auth with zero server roundtrips.',
+    impactMetric: '35+ Tools in One',
+    challenge:
+      'Developers constantly juggle fragmented websites for image URIs, JWT inspection, audio conversion, and PDF encoding, exposing data to third parties.',
+    architecture:
+      'Engineered a comprehensive client-side workstation supporting 35+ specialized encoding workflows, MIME auto-detection, batch jobs, and offline PWA capability.',
+    outcomes: [
+      'Comprehensive coverage: Text, Images, PDF, Audio, Video, CSS Data URIs, and JWT Auth',
+      '100% offline-ready with zero external dependencies and zero server uploads',
+      'Batch processing pipeline with live syntax validation and instant copy/download',
+    ],
+    stack: ['JavaScript', 'HTML5', 'CSS3', 'Web APIs', 'GitHub Pages'],
+    repoUrl: 'https://github.com/oathanrex/base64-tools',
+    liveUrl: 'https://oathanrex.github.io/base64-tools/',
+  },
 ];
 
 export const CAPABILITY_GROUPS: CapabilityGroup[] = [

@@ -15,9 +15,6 @@ const SelectedWork = lazy(() =>
 const ProjectsExplorer = lazy(() =>
   import('./components/ProjectsExplorer').then((m) => ({ default: m.ProjectsExplorer }))
 );
-const DevToolsSection = lazy(() =>
-  import('./components/DevToolsSection').then((m) => ({ default: m.DevToolsSection }))
-);
 const CapabilitiesSection = lazy(() =>
   import('./components/CapabilitiesSection').then((m) => ({ default: m.CapabilitiesSection }))
 );
@@ -185,12 +182,6 @@ export default function App() {
               languages={languages}
               onOpenReadme={(repo) => setActiveModal({ type: 'readme', repo })}
             />
-          </Suspense>
-
-          <Suspense
-            fallback={<SectionReserve id="tools" className="section-shell--well min-h-[580px]" />}
-          >
-            <DevToolsSection />
           </Suspense>
 
           <Suspense
