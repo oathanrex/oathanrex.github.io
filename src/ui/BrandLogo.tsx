@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import roundFaviconPng from '../assets/oathanrex-round-favicon.png';
 import logoPng from '../assets/oathanrex-logo.png';
 import avatarJpg from '../assets/oathanrex-avatar.jpg';
 
@@ -10,6 +11,8 @@ interface BrandLogoProps {
   showFallbackOnFail?: boolean;
 }
 
+const REMOTE_ROUND_FAVICON =
+  'https://raw.githubusercontent.com/oathanrex/oathanrex-legacy-portfolio/main/favicon.png';
 const REMOTE_LOGO_FALLBACK =
   'https://raw.githubusercontent.com/oathanrex/images/main/oathanrex-logo.png';
 const YOUTUBE_AVATAR_FALLBACK =
@@ -21,14 +24,18 @@ export function BrandLogo({
   className = '',
   alt = 'OathanRex Logo',
 }: BrandLogoProps) {
-  const [src, setSrc] = useState(logoPng);
+  const [src, setSrc] = useState(roundFaviconPng);
 
   const radiusStyle = shape === 'circle' ? '9999px' : `${Math.max(6, Math.round(size * 0.28))}px`;
 
   const handleImageError = () => {
-    if (src === logoPng) {
+    if (src === roundFaviconPng) {
+      setSrc(logoPng);
+    } else if (src === logoPng) {
       setSrc(avatarJpg);
     } else if (src === avatarJpg) {
+      setSrc(REMOTE_ROUND_FAVICON);
+    } else if (src === REMOTE_ROUND_FAVICON) {
       setSrc(REMOTE_LOGO_FALLBACK);
     } else if (src === REMOTE_LOGO_FALLBACK) {
       setSrc(YOUTUBE_AVATAR_FALLBACK);
