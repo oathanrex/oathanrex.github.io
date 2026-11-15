@@ -8,9 +8,9 @@
 [![Three.js](https://img.shields.io/badge/Three.js-WebGL_Particles-black?style=flat-square&logo=threedotjs)](https://threejs.org)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow?style=flat-square)](LICENSE)
 
-Production repository and source code for the official web portfolio and interactive developer hub of **Oathan Rex** ([@oathanrex](https://github.com/oathanrex)), accessible live at **[oathanrex.github.io](https://oathanrex.github.io/)**.
+Official web portfolio and interactive developer ecosystem for **Oathan Rex** ([@oathanrex](https://github.com/oathanrex)), accessible live at **[oathanrex.github.io](https://oathanrex.github.io/)**.
 
-Designed and engineered with strict client-side performance, zero third-party telemetry, perceptually uniform OKLCH color design tokens, and modular edge delivery.
+Designed and engineered with strict client-side performance, zero third-party telemetry, perceptually uniform OKLCH color tokens, and modular edge delivery.
 
 ---
 
@@ -38,7 +38,7 @@ The portfolio serves as the central directory for Oathan Rex's suite of producti
 
 ---
 
-## 🛠️ Tech Stack & Tooling
+## 🛠️ Architecture & Core Stack
 
 ```
 Core Framework   : React 19 + TypeScript (Strict Typechecking)
@@ -47,47 +47,7 @@ Interactive 3D   : Three.js WebGL Particle Field (Motion-Aware & Density-Adaptiv
 Animations       : Motion (Framer Motion v12 engine)
 Icons & Assets   : Lucide React + Native CSS Vector Graphics
 Build Pipeline   : Vite 8 + Rollup Chunk Optimization
-Edge Deployment  : GitHub Actions CI/CD to GitHub Pages
 ```
-
----
-
-## 💻 Local Development
-
-```bash
-# Clone the repository
-git clone https://github.com/oathanrex/oathanrex.github.io.git
-cd oathanrex.github.io
-
-# Install dependencies
-npm install
-
-# Start local development server (http://localhost:3000)
-npm run dev
-
-# Run TypeScript strict typecheck
-npm run lint
-
-# Execute automated logic and 3D particle test suite
-npm test
-
-# Build production distribution
-npm run build
-
-# Preview production build locally
-npm run preview
-```
-
----
-
-## 🚀 Continuous Deployment
-
-The repository uses an automated GitHub Actions deployment pipeline (`.github/workflows/deploy.yml`). Every commit pushed to the `main` branch undergoes automated validation:
-1. Fresh dependency tree installation (`npm ci`).
-2. TypeScript typecheck verification (`tsc --noEmit`).
-3. Unit test suite execution (`npm test`).
-4. Vite production bundle compilation (`npm run build`).
-5. Zero-downtime deployment to GitHub Pages.
 
 ---
 
