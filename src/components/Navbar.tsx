@@ -59,13 +59,13 @@ export function Navbar({ onOpenProjectBrief }: NavbarProps) {
         className="pointer-events-none absolute top-0 right-0 left-0 h-[2px] bg-[var(--brand-accent)]"
       />
       <div className="layout-container flex h-16 items-center justify-between gap-8">
-        {/* Zone 1: CSS vector monogram + single-line wordmark */}
+        {/* Zone 1: Official OathanRex Logo + single-line wordmark */}
         <a
           href="#top"
           className="focus-ring group inline-flex items-center gap-2.5 font-display text-lg font-bold tracking-tight text-[var(--brand-fg)] whitespace-nowrap shrink-0"
         >
           <BrandLogo
-            size={30}
+            size={34}
             className="transition-transform duration-150 group-hover:scale-105"
           />
           <span>Oathan Rex</span>

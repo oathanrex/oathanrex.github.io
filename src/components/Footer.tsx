@@ -31,7 +31,7 @@ export function Footer({ onOpenShortcuts }: FooterProps) {
               href="#top"
               className="focus-ring inline-flex items-center gap-2.5 font-display text-lg font-bold tracking-tight text-[var(--brand-fg)]"
             >
-              <BrandLogo size={28} />
+              <BrandLogo size={32} />
               <span>Oathan Rex</span>
             </a>
             <p className="mt-2.5 max-w-sm text-sm leading-relaxed text-[var(--brand-muted)]">

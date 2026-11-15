@@ -90,7 +90,7 @@ export function Hero({
           {/* Compact Identity & Single Utility Control Strip */}
           <div className="flex flex-wrap items-center justify-between gap-4">
             <div className="flex items-center gap-3 min-w-0">
-              <BrandLogo size={44} shape="circle" className="shadow-2xs" />
+              <BrandLogo size={48} shape="circle" className="shadow-xs ring-2 ring-[var(--brand-border)]" />
 
               <div className="min-w-0">
                 <div className="truncate text-sm font-semibold text-[var(--brand-fg)]">
