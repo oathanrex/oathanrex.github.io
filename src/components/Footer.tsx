@@ -8,6 +8,7 @@ interface FooterProps {
 const FOOTER_LINKS = [
   { label: 'Work', href: '#work' },
   { label: 'Projects', href: '#projects' },
+  { label: 'DevTools', href: '#tools' },
   { label: 'Capabilities', href: '#capabilities' },
   { label: 'Contact', href: '#contact' },
 ] as const;

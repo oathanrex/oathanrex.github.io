@@ -163,6 +163,7 @@ export function CommandPalette({
             {[
               { label: 'Top Starred Work', href: '#work' },
               { label: 'GitHub Explorer', href: '#projects' },
+              { label: 'DevTools Suite', href: '#tools' },
               { label: 'Capabilities', href: '#capabilities' },
               { label: 'Contact', href: '#contact' },
             ].map((item) => (
