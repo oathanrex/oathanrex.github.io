@@ -1,28 +1,106 @@
-# Oathan Rex | Developer Portfolio
+# Oathan Rex — Official Developer Portfolio & Web Ecosystem
 
-Open-source developer portfolio and live GitHub repository explorer for **Oathan Rex** (`@oathanrex`), built with React 19, TypeScript, Tailwind CSS v4 (OKLCH tokens), and a lazy-loaded interactive Three.js hero particle field.
+[![Production](https://img.shields.io/badge/Status-Production-success?style=flat-square)](https://oathanrex.github.io)
+[![Live Site](https://img.shields.io/badge/Live-oathanrex.github.io-blue?style=flat-square)](https://oathanrex.github.io)
+[![React 19](https://img.shields.io/badge/React-19.0-61dafb?style=flat-square&logo=react)](https://react.dev)
+[![TypeScript](https://img.shields.io/badge/TypeScript-7.0-3178c6?style=flat-square&logo=typescript)](https://www.typescriptlang.org)
+[![Tailwind v4](https://img.shields.io/badge/Tailwind-v4_OKLCH-38bdf8?style=flat-square&logo=tailwindcss)](https://tailwindcss.com)
+[![Three.js](https://img.shields.io/badge/Three.js-WebGL_Particles-black?style=flat-square&logo=threedotjs)](https://threejs.org)
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow?style=flat-square)](LICENSE)
 
-## Highlights
+Production repository and source code for the official web portfolio and interactive developer hub of **Oathan Rex** ([@oathanrex](https://github.com/oathanrex)), accessible live at **[oathanrex.github.io](https://oathanrex.github.io/)**.
 
-- **Strict Resource Strategy**: Zero-dependency CSS-vector `BrandLogo` emblem (`src/ui/BrandLogo.tsx`), consolidated `DesignTokens.css` styling, `React.lazy` code-splitting across all sections and modals with height-matched `Suspense` fallbacks, and lazy-loaded Three.js WebGL canvas.
-- **Interactive GitHub Explorer**: Fetches live repositories and star rankings from GitHub REST API with `localStorage` cache and snapshot fallback, plus search (`/`), sort, category filters, and an inline README viewer.
-- **Project Brief with Active Timeline**: Includes Project Scope, Target Timeline, and optional Active Project Timeline with a 4-stage delivery visualizer.
-- **Command Palette & Accessibility**: Quick navigation via `Ctrl/Cmd+K`, keyboard shortcuts (`?`), WCAG AA+ contrast in Light and Dark modes, and `prefers-reduced-motion` compliance.
+Designed and engineered with strict client-side performance, zero third-party telemetry, perceptually uniform OKLCH color design tokens, and modular edge delivery.
 
-## Local Development
+---
 
-```bash
-npm install
-npm run dev     # Serve locally on http://localhost:3000
-npm run lint    # Run TypeScript typecheck
-npm test        # Run unit test suite
-npm run build   # Build production output in dist/
-npm run preview # Preview dist/ on http://localhost:4173
+## 🌐 Live Web Ecosystem & Flagship Platforms
+
+The portfolio serves as the central directory for Oathan Rex's suite of production-grade web applications and tools:
+
+| Platform | Domain / URL | Core Focus & Architecture |
+| :--- | :--- | :--- |
+| **PerspectiveFix** | [perspectivefix.app](https://perspectivefix.app/) | Browser-native homography transformation tool to straighten skewed documents, receipts, and book scans with zero server uploads and 100% client-side privacy. |
+| **Markdown Editor** | [oathanrex.github.io/markdown-editor](https://oathanrex.github.io/markdown-editor/) | Offline-capable PWA featuring synchronized split preview, GitHub Flavored Markdown, KaTeX LaTeX math equations, and Mermaid diagrams. |
+| **Base64 Tools Hub** | [oathanrex.github.io/base64-tools](https://oathanrex.github.io/base64-tools/) | Complete 35+ converter & encoder workstation supporting Text, Batch Images, PDF, Audio, Video, CSS Data URIs, and JWT/Basic-Auth security tools. |
+| **GitGet** | [oathanrex.github.io/gitget](https://oathanrex.github.io/gitget/) | Intelligent OS-detecting GitHub release finder that matches Windows, macOS, Linux, and Android installers in one click. |
+| **Developer Vault** | [github.com/oathanrex/developer-vault](https://github.com/oathanrex/developer-vault) | High-signal engineering repository featuring battle-tested system prompts, PRD frameworks, and full-stack technical guides. |
+
+---
+
+## ⚡ Architectural Principles & Standards
+
+- **100% Client-Side Privacy**: All utility tools, transformations, and encoders execute entirely within the user's browser runtime. Zero tracking, zero analytics bloat, zero server round-trips.
+- **Perceptually Uniform OKLCH Design System**: Uses an isolated, hardware-accelerated OKLCH color system (`DesignTokens.css`) providing mathematically balanced contrast across OLED True-Dark (`#000000`) and Paper-Light themes.
+- **Zero-Layout-Shift (CLS 0.00)**: All sections, 3D WebGL particle canvases, and dialog modals utilize strict code-splitting (`React.lazy`) paired with pixel-precise reserve shells (`SectionReserve`).
+- **Asset-Free Branding**: Ultra-crisp vector `BrandLogo` emblem rendered natively via CSS transforms and paths with zero raster image HTTP requests, complemented by official circular multi-resolution favicons.
+- **Universal Accessibility (WCAG AA+)**: Full keyboard navigation (`Tab`, `Esc`, `Ctrl/Cmd+K` Command Palette, `?` Shortcuts), ARIA landmarks, and automatic `prefers-reduced-motion` compliance.
+
+---
+
+## 🛠️ Tech Stack & Tooling
+
+```
+Core Framework   : React 19 + TypeScript (Strict Typechecking)
+Styling Engine   : Tailwind CSS v4 + Custom OKLCH Design Tokens
+Interactive 3D   : Three.js WebGL Particle Field (Motion-Aware & Density-Adaptive)
+Animations       : Motion (Framer Motion v12 engine)
+Icons & Assets   : Lucide React + Native CSS Vector Graphics
+Build Pipeline   : Vite 8 + Rollup Chunk Optimization
+Edge Deployment  : GitHub Actions CI/CD to GitHub Pages
 ```
 
-## Deploy to GitHub Pages
+---
 
-1. Create a repo named `oathanrex.github.io` and upload **all** files from this folder (including the hidden `.github/` folder).
-2. Go to **Settings -> Pages -> Build and deployment -> Source** and choose **GitHub Actions**.
-3. The workflow (`.github/workflows/deploy.yml`) runs on every push to `main`/`master`: `npm ci`, typecheck, tests, build, deploy `dist/`.
-4. If the first run happened before step 2, open the **Actions** tab -> *Deploy to GitHub Pages* -> **Run workflow**.
+## 💻 Local Development
+
+```bash
+# Clone the repository
+git clone https://github.com/oathanrex/oathanrex.github.io.git
+cd oathanrex.github.io
+
+# Install dependencies
+npm install
+
+# Start local development server (http://localhost:3000)
+npm run dev
+
+# Run TypeScript strict typecheck
+npm run lint
+
+# Execute automated logic and 3D particle test suite
+npm test
+
+# Build production distribution
+npm run build
+
+# Preview production build locally
+npm run preview
+```
+
+---
+
+## 🚀 Continuous Deployment
+
+The repository uses an automated GitHub Actions deployment pipeline (`.github/workflows/deploy.yml`). Every commit pushed to the `main` branch undergoes automated validation:
+1. Fresh dependency tree installation (`npm ci`).
+2. TypeScript typecheck verification (`tsc --noEmit`).
+3. Unit test suite execution (`npm test`).
+4. Vite production bundle compilation (`npm run build`).
+5. Zero-downtime deployment to GitHub Pages.
+
+---
+
+## 👤 Author & Contact
+
+**Oathan Rex**
+- Portfolio: [https://oathanrex.github.io](https://oathanrex.github.io)
+- GitHub: [@oathanrex](https://github.com/oathanrex)
+- Project Inquiry: [oathanrex@gmail.com](mailto:oathanrex@gmail.com)
+- Support: [buymeacoffee.com/oathanrex](https://buymeacoffee.com/oathanrex)
+
+---
+
+## 📄 License
+
+This project is licensed under the [MIT License](LICENSE).
