@@ -5,7 +5,7 @@ import avatarJpg from '../assets/oathanrex-avatar.jpg';
 
 interface BrandLogoProps {
   size?: number;
-  shape?: 'squircle' | 'circle';
+  shape?: 'circle' | 'squircle';
   className?: string;
   alt?: string;
   showFallbackOnFail?: boolean;
@@ -20,13 +20,14 @@ const YOUTUBE_AVATAR_FALLBACK =
 
 export function BrandLogo({
   size = 32,
-  shape = 'squircle',
+  shape = 'circle',
   className = '',
   alt = 'OathanRex Logo',
 }: BrandLogoProps) {
   const [src, setSrc] = useState(roundFaviconPng);
 
-  const radiusStyle = shape === 'circle' ? '9999px' : `${Math.max(6, Math.round(size * 0.28))}px`;
+  const isCircle = shape === 'circle';
+  const radiusStyle = isCircle ? '50%' : `${Math.max(6, Math.round(size * 0.28))}px`;
 
   const handleImageError = () => {
     if (src === roundFaviconPng) {
@@ -44,7 +45,9 @@ export function BrandLogo({
 
   return (
     <span
-      className={`logo-icon relative inline-flex items-center justify-center shrink-0 overflow-hidden select-none bg-[var(--brand-card-bg)] shadow-xs transition-all duration-200 border border-[var(--brand-border)] ${className}`}
+      className={`logo-icon relative inline-flex items-center justify-center shrink-0 overflow-hidden select-none bg-[var(--brand-card-bg)] shadow-xs transition-all duration-200 border border-[var(--brand-border)] ${
+        isCircle ? 'rounded-full' : ''
+      } ${className}`}
       style={{
         width: `${size}px`,
         height: `${size}px`,
@@ -60,7 +63,9 @@ export function BrandLogo({
         loading="eager"
         decoding="async"
         onError={handleImageError}
-        className="h-full w-full object-cover transition-transform duration-200"
+        className={`h-full w-full object-cover transition-transform duration-200 ${
+          isCircle ? 'rounded-full' : ''
+        }`}
         style={{
           borderRadius: radiusStyle,
         }}

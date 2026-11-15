@@ -66,6 +66,7 @@ export function Navbar({ onOpenProjectBrief }: NavbarProps) {
         >
           <BrandLogo
             size={34}
+            shape="circle"
             className="transition-transform duration-150 group-hover:scale-105"
           />
           <span>Oathan Rex</span>
