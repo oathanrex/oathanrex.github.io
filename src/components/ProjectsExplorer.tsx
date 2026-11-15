@@ -135,7 +135,9 @@ export function ProjectsExplorer({
       categoryFilter,
       excludePinned: excludeFlagships,
       pinnedNames: flagshipNames,
-    });
+    }).filter(
+      (r) => r.name !== 'perspective-fix' && r.name !== 'perspectivefix'
+    );
     return sortRepos(filtered, sortBy);
   }, [repos, searchQuery, categoryFilter, sortBy, excludeFlagships, flagshipNames]);
 

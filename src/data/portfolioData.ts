@@ -29,9 +29,10 @@ export const CASE_STUDIES: CaseStudy[] = [
       'Instant corner-pin geometry warp with live preview and full-resolution export',
       'Published as both GitHub Pages demo and standalone web platform at perspectivefix.app',
     ],
-    stack: ['TypeScript', 'Canvas API', 'HTML5', 'GitHub Pages'],
+    stack: ['TypeScript', 'Canvas API', 'HTML5', 'Web App'],
     repoUrl: 'https://github.com/oathanrex/perspective-fix',
     liveUrl: 'https://perspectivefix.app/',
+    hideSource: true,
   },
   {
     id: 'xfce4-themes-and-icons',

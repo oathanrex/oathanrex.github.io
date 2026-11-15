@@ -127,14 +127,16 @@ export function SelectedWork({ repos }: SelectedWorkProps) {
                           Launch Live App
                           <ArrowUpRight className="h-3.5 w-3.5" aria-hidden="true" />
                         </a>
-                        <a
-                          href={study.repoUrl}
-                          target="_blank"
-                          rel="noopener noreferrer"
-                          className="btn-secondary min-h-[38px] gap-1.5 px-3.5 py-1.5 text-xs"
-                        >
-                          Source
-                        </a>
+                        {!study.hideSource && study.repoUrl && (
+                          <a
+                            href={study.repoUrl}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="btn-secondary min-h-[38px] gap-1.5 px-3.5 py-1.5 text-xs"
+                          >
+                            Source
+                          </a>
+                        )}
                       </>
                     ) : (
                       <a
@@ -248,15 +250,17 @@ export function SelectedWork({ repos }: SelectedWorkProps) {
                         <ArrowUpRight className="h-3.5 w-3.5" aria-hidden="true" />
                       </a>
                     )}
-                    <a
-                      href={activeStudy.repoUrl}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="btn-secondary min-h-[40px] gap-1.5 px-4 py-2 text-xs"
-                    >
-                      View Source on GitHub
-                      <ArrowUpRight className="h-3.5 w-3.5" aria-hidden="true" />
-                    </a>
+                    {!activeStudy.hideSource && activeStudy.repoUrl && (
+                      <a
+                        href={activeStudy.repoUrl}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="btn-secondary min-h-[40px] gap-1.5 px-4 py-2 text-xs"
+                      >
+                        View Source on GitHub
+                        <ArrowUpRight className="h-3.5 w-3.5" aria-hidden="true" />
+                      </a>
+                    )}
                   </div>
                 </div>
               </div>

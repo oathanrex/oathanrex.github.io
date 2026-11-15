@@ -46,6 +46,7 @@ export interface CaseStudy {
   stack: string[];
   repoUrl: string;
   liveUrl: string;
+  hideSource?: boolean;
 }
 
 export interface CapabilityGroup {
