@@ -23,6 +23,7 @@ The portfolio serves as the central directory for Oathan Rex's suite of producti
 | **PerspectiveFix** | [perspectivefix.app](https://perspectivefix.app/) | Browser-native homography transformation tool to straighten skewed documents, receipts, and book scans with zero server uploads and 100% client-side privacy. |
 | **Markdown Editor** | [oathanrex.github.io/markdown-editor](https://oathanrex.github.io/markdown-editor/) | Offline-capable PWA featuring synchronized split preview, GitHub Flavored Markdown, KaTeX LaTeX math equations, and Mermaid diagrams. |
 | **Base64 Tools Hub** | [oathanrex.github.io/base64-tools](https://oathanrex.github.io/base64-tools/) | Complete 35+ converter & encoder workstation supporting Text, Batch Images, PDF, Audio, Video, CSS Data URIs, and JWT/Basic-Auth security tools. |
+| **JSUnpacker Studio** | [oathanrex.github.io/jsUnpacker](https://oathanrex.github.io/jsUnpacker/) | Client-side AST JavaScript deobfuscator & unpacker studio supporting 14 deobfuscation families (Packer, Obfuscator.IO, JSFuck, AAencode, JJencode, and array decoders). |
 | **GitGet** | [oathanrex.github.io/gitget](https://oathanrex.github.io/gitget/) | Intelligent OS-detecting GitHub release finder that matches Windows, macOS, Linux, and Android installers in one click. |
 | **Developer Vault** | [github.com/oathanrex/developer-vault](https://github.com/oathanrex/developer-vault) | High-signal engineering repository featuring battle-tested system prompts, PRD frameworks, and full-stack technical guides. |
 
