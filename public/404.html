@@ -1,0 +1,87 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>404 | Oathan Rex</title>
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <style>
+      :root {
+        color-scheme: light dark;
+        --bg: oklch(97.8% 0.005 170);
+        --surface: oklch(99.6% 0.002 170);
+        --fg: oklch(19% 0.025 198);
+        --muted: oklch(44% 0.02 198);
+        --border: oklch(86% 0.012 182);
+        --accent: oklch(45.5% 0.145 162);
+      }
+      @media (prefers-color-scheme: dark) {
+        :root {
+          --bg: oklch(14.5% 0.014 205);
+          --surface: oklch(19.5% 0.017 205);
+          --fg: oklch(95% 0.008 180);
+          --muted: oklch(72% 0.015 190);
+          --border: oklch(30% 0.018 202);
+          --accent: oklch(68% 0.145 162);
+        }
+      }
+      * { box-sizing: border-box; }
+      body {
+        margin: 0;
+        min-height: 100vh;
+        display: grid;
+        place-items: center;
+        padding: 24px;
+        background: var(--bg);
+        color: var(--fg);
+        font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      }
+      main {
+        max-width: 440px;
+        width: 100%;
+        padding: 32px;
+        border-radius: 16px;
+        background: var(--surface);
+        border: 1px solid var(--border);
+      }
+      p.code {
+        margin: 0 0 8px;
+        font-family: ui-monospace, SFMono-Regular, monospace;
+        font-size: 13px;
+        font-weight: 600;
+        color: var(--accent);
+      }
+      h1 {
+        margin: 0 0 12px;
+        font-size: 24px;
+        line-height: 1.2;
+      }
+      p {
+        margin: 0 0 24px;
+        font-size: 15px;
+        line-height: 1.6;
+        color: var(--muted);
+      }
+      a {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        padding: 10px 18px;
+        border-radius: 8px;
+        background: var(--accent);
+        color: #fff;
+        font-size: 14px;
+        font-weight: 600;
+        text-decoration: none;
+      }
+    </style>
+  </head>
+  <body>
+    <main>
+      <p class="code">404</p>
+      <h1>Page not found</h1>
+      <p>This path does not exist on Oathan Rex's portfolio. Return to the main showcase and repository explorer.</p>
+      <a href="/">Return to portfolio</a>
+    </main>
+  </body>
+</html>
