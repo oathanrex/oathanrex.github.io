@@ -1,5 +1,4 @@
-import { ArrowRight, Check, Coffee, Copy, ExternalLink, Mail } from 'lucide-react';
-import { useState } from 'react';
+import { ArrowRight, Coffee, ExternalLink, Mail } from 'lucide-react';
 import { OATHANREX_CONTACT } from '../data/portfolioData';
 
 interface ContactSectionProps {
@@ -7,18 +6,6 @@ interface ContactSectionProps {
 }
 
 export function ContactSection({ onOpenProjectBrief }: ContactSectionProps) {
-  const [copied, setCopied] = useState(false);
-
-  const handleCopy = () => {
-    navigator.clipboard
-      .writeText(OATHANREX_CONTACT.email)
-      .then(() => {
-        setCopied(true);
-        setTimeout(() => setCopied(false), 2000);
-      })
-      .catch(() => {});
-  };
-
   return (
     <section id="contact" className="section-shell--end">
       <div className="layout-container">
@@ -47,24 +34,6 @@ export function ContactSection({ onOpenProjectBrief }: ContactSectionProps) {
               >
                 Send Project Brief
                 <ArrowRight className="h-4 w-4" aria-hidden="true" />
-              </button>
-
-              <button
-                type="button"
-                onClick={handleCopy}
-                className="btn-ghost min-h-[44px] px-3.5 py-2.5 text-sm"
-              >
-                {copied ? (
-                  <>
-                    <Check className="h-4 w-4 text-[var(--brand-accent-ink)]" aria-hidden="true" />
-                    Copied
-                  </>
-                ) : (
-                  <>
-                    <Copy className="h-4 w-4" aria-hidden="true" />
-                    Copy Email
-                  </>
-                )}
               </button>
             </div>
           </div>

@@ -1,4 +1,4 @@
-import { ArrowRight, Check, Copy, Moon, Search, Sun, X } from 'lucide-react';
+import { ArrowRight, Mail, Moon, Search, Sun, X } from 'lucide-react';
 import { useEffect, useMemo, useRef, useState } from 'react';
 import { OATHANREX_CONTACT } from '../data/portfolioData';
 import type { GitHubRepo } from '../types/portfolio';
@@ -23,7 +23,6 @@ export function CommandPalette({
   onOpenReadme,
 }: CommandPaletteProps) {
   const [query, setQuery] = useState('');
-  const [copiedEmail, setCopiedEmail] = useState(false);
   const inputRef = useRef<HTMLInputElement>(null);
 
   useEffect(() => {
@@ -57,16 +56,6 @@ export function CommandPalette({
     onClose();
     const el = document.querySelector(hash);
     if (el) el.scrollIntoView({ behavior: 'smooth', block: 'start' });
-  };
-
-  const handleCopyEmail = () => {
-    navigator.clipboard
-      .writeText(OATHANREX_CONTACT.email)
-      .then(() => {
-        setCopiedEmail(true);
-        setTimeout(() => setCopiedEmail(false), 1500);
-      })
-      .catch(() => {});
   };
 
   return (
@@ -122,22 +111,14 @@ export function CommandPalette({
               <ArrowRight className="h-3.5 w-3.5 text-[var(--brand-muted)] transition-colors group-hover:text-[var(--brand-fg)]" />
             </button>
 
-            <button
-              type="button"
-              onClick={handleCopyEmail}
+            <a
+              href={`mailto:${OATHANREX_CONTACT.email}`}
+              onClick={onClose}
               className="focus-ring group flex w-full items-center justify-between rounded-lg px-3 py-2 text-left text-[var(--brand-fg)] transition-colors hover:bg-[var(--brand-well)]"
             >
-              <span>
-                {copiedEmail
-                  ? `Copied ${OATHANREX_CONTACT.email}`
-                  : `Copy Email (${OATHANREX_CONTACT.email})`}
-              </span>
-              {copiedEmail ? (
-                <Check className="h-3.5 w-3.5 text-[var(--brand-accent-ink)]" />
-              ) : (
-                <Copy className="h-3.5 w-3.5 text-[var(--brand-muted)] transition-colors group-hover:text-[var(--brand-fg)]" />
-              )}
-            </button>
+              <span>Email {OATHANREX_CONTACT.email}</span>
+              <Mail className="h-3.5 w-3.5 text-[var(--brand-muted)] transition-colors group-hover:text-[var(--brand-fg)]" />
+            </a>
 
             <button
               type="button"
