@@ -35,6 +35,28 @@ export const CASE_STUDIES: CaseStudy[] = [
     hideSource: true,
   },
   {
+    id: 'adsenseready-ai',
+    repoName: 'adsenseready-ai',
+    title: 'AdSenseReady-AI: 360° Forensic Audit Engine & MCP Server',
+    category: 'AI Agents & SEO',
+    year: '2026',
+    summary:
+      'Universal AI skill, native Model Context Protocol (MCP) server, and 360-degree automated forensic audit engine to guarantee 100% Google AdSense approval readiness.',
+    impactMetric: '7-Pillar / 100-Pt Matrix',
+    challenge:
+      'Indie creators and webmasters face endless cryptic Google AdSense rejections ("Low-value content", "Site Navigation") with zero guidance from standard SEO tools.',
+    architecture:
+      'Engineered a zero-dependency forensic Python audit engine with native MCP server integration, dynamic weekly Google policy RSS sync, and automated HTML dashboard generation.',
+    outcomes: [
+      'Eliminates guesswork with calibrated 100-point scoring across 7 Google Publisher Policy pillars',
+      'Native Model Context Protocol (MCP) integration with Claude Desktop, Cursor, and AI agents',
+      'Autonomous article generator and thin content remediation blueprints with E-E-A-T credentials',
+    ],
+    stack: ['Python', 'MCP Protocol', 'SEO Forensics', 'CLI', 'GitHub Actions'],
+    repoUrl: 'https://github.com/oathanrex/adsenseready-ai',
+    liveUrl: 'https://github.com/oathanrex/adsenseready-ai',
+  },
+  {
     id: 'xfce4-themes-and-icons',
     repoName: 'xfce4-themes-and-icons',
     title: 'XFCE4 Themes & Icons: Curated Linux Desktop Collection',
@@ -221,6 +243,24 @@ export const FALLBACK_PROFILE: GitHubProfile = {
 };
 
 export const FALLBACK_REPOS: GitHubRepo[] = [
+  {
+    id: 101,
+    name: 'adsenseready-ai',
+    full_name: 'oathanrex/adsenseready-ai',
+    description:
+      'Universal AI Skill, Native MCP Server & 360° Automated Audit Engine for 100% Google AdSense Approval Readiness.',
+    html_url: 'https://github.com/oathanrex/adsenseready-ai',
+    clone_url: 'https://github.com/oathanrex/adsenseready-ai.git',
+    language: 'Python',
+    stargazers_count: 8,
+    forks_count: 2,
+    has_pages: false,
+    fork: false,
+    archived: false,
+    updated_at: '2026-11-18T15:25:00Z',
+    created_at: '2026-11-18T15:20:00Z',
+    owner: { login: 'oathanrex' },
+  },
   {
     id: 1,
     name: 'perspective-fix',
