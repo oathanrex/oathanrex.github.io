@@ -382,7 +382,7 @@ export function ProjectsExplorer({
                   setPage(1);
                 }}
                 placeholder="Search repositories by name, stack, or keyword (Press /)"
-                className="form-field h-11 pr-4 pl-10 text-sm"
+                className="form-field h-11 rounded-full pr-4 pl-10 text-sm"
               />
             </div>
 
@@ -394,7 +394,7 @@ export function ProjectsExplorer({
                 id="project-sort-select"
                 value={sortBy}
                 onChange={(e) => setSortBy(e.target.value as RepoSortOption)}
-                className="form-field h-11 w-auto px-3.5 text-sm font-medium hover:bg-[var(--brand-well)]"
+                className="form-field h-11 w-auto rounded-full px-4 text-sm font-medium hover:bg-[var(--brand-well)]"
               >
                 <option value="stars">Most Stars</option>
                 <option value="updated">Recently Updated</option>
@@ -403,13 +403,13 @@ export function ProjectsExplorer({
                 <option value="created">Recently Created</option>
               </select>
 
-              <div className="surface-card inline-flex rounded-lg p-1">
+              <div className="surface-card inline-flex rounded-full p-1 border border-[var(--brand-border)]">
                 <button
                   type="button"
                   onClick={() => setViewMode('grid')}
                   aria-label="Grid view"
                   aria-pressed={viewMode === 'grid'}
-                  className={`focus-ring inline-flex h-8 w-8 items-center justify-center rounded-md transition-colors ${
+                  className={`focus-ring inline-flex h-8 w-8 items-center justify-center rounded-full transition-colors ${
                     viewMode === 'grid'
                       ? 'bg-[var(--brand-fg)] text-[var(--brand-bg)]'
                       : 'text-[var(--brand-muted)] hover:bg-[var(--brand-well)] hover:text-[var(--brand-fg)]'
@@ -422,7 +422,7 @@ export function ProjectsExplorer({
                   onClick={() => setViewMode('list')}
                   aria-label="List view"
                   aria-pressed={viewMode === 'list'}
-                  className={`focus-ring inline-flex h-8 w-8 items-center justify-center rounded-md transition-colors ${
+                  className={`focus-ring inline-flex h-8 w-8 items-center justify-center rounded-full transition-colors ${
                     viewMode === 'list'
                       ? 'bg-[var(--brand-fg)] text-[var(--brand-bg)]'
                       : 'text-[var(--brand-muted)] hover:bg-[var(--brand-well)] hover:text-[var(--brand-fg)]'
@@ -447,9 +447,9 @@ export function ProjectsExplorer({
                     setCategoryFilter(tab.id);
                     setPage(1);
                   }}
-                  className={`focus-ring inline-flex min-h-[36px] items-center gap-2 rounded-lg border px-3 py-1.5 text-xs font-medium transition-colors whitespace-nowrap shrink-0 ${
+                  className={`focus-ring inline-flex min-h-[36px] items-center gap-2 rounded-full border px-3.5 py-1.5 text-xs font-semibold transition-all whitespace-nowrap shrink-0 hover:-translate-y-0.5 active:translate-y-0 ${
                     active
-                      ? 'border-[var(--brand-accent)] bg-[var(--brand-accent)] text-[var(--brand-accent-fg)] hover:bg-[var(--brand-accent-hover)]'
+                      ? 'border-[var(--brand-accent)] bg-[var(--brand-accent)] text-[var(--brand-accent-fg)] hover:bg-[var(--brand-accent-hover)] shadow-xs'
                       : 'border-[var(--brand-border)] bg-[var(--brand-surface)] text-[var(--brand-muted)] hover:bg-[var(--brand-well)] hover:text-[var(--brand-fg)]'
                   }`}
                 >
@@ -462,8 +462,8 @@ export function ProjectsExplorer({
                   )}
                   <span>{tab.label}</span>
                   <span
-                    className={`font-mono tabular-nums ${
-                      active ? 'opacity-85' : 'text-[var(--brand-muted)]'
+                    className={`rounded-full px-1.5 py-0.2 text-[10px] font-mono tabular-nums ${
+                      active ? 'bg-black/20 text-white dark:text-zinc-950 dark:bg-white/20' : 'bg-[var(--brand-well)] text-[var(--brand-muted)]'
                     }`}
                   >
                     {tab.count}

@@ -98,8 +98,8 @@ export function computePointerDisplacement(
 export function getParticleThemePalette(theme: 'light' | 'dark'): ParticleThemePalette {
   if (theme === 'dark') {
     return {
-      background: 0x070d0e,
-      fog: 0x070d0e,
+      background: 0x08090d,
+      fog: 0x08090d,
       hemiSky: 0xd1fae5,
       hemiGround: 0x0f172a,
       keyLight: 0xffffff,
@@ -110,8 +110,8 @@ export function getParticleThemePalette(theme: 'light' | 'dark'): ParticleThemeP
   }
 
   return {
-    background: 0xf7fbf9,
-    fog: 0xf7fbf9,
+    background: 0xf8fafc,
+    fog: 0xf8fafc,
     hemiSky: 0xffffff,
     hemiGround: 0xcbd5e1,
     keyLight: 0xf8fafc,

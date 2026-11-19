@@ -116,7 +116,7 @@ export function CommandPalette({
               onClick={onClose}
               className="focus-ring group flex w-full items-center justify-between rounded-lg px-3 py-2 text-left text-[var(--brand-fg)] transition-colors hover:bg-[var(--brand-well)]"
             >
-              <span>Email {OATHANREX_CONTACT.email}</span>
+              <span>Send Email</span>
               <Mail className="h-3.5 w-3.5 text-[var(--brand-muted)] transition-colors group-hover:text-[var(--brand-fg)]" />
             </a>
 

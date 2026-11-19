@@ -10,60 +10,66 @@
     --nav-height: 4rem;
     --space-section-y: 3.5rem;
     --space-section-y-lg: 4.5rem;
-    --radius-card: 1rem;
-    --radius-surface: 0.75rem;
-    --radius-control: 0.5rem;
+    --radius-card: 1.25rem;
+    --radius-surface: 1rem;
+    --radius-control: 9999px;
     --ease-brand: cubic-bezier(0.22, 1, 0.36, 1);
 
-    /* Oathan Rex Signature Brand Tokens: Mineral Slate & Drafting Emerald (OKLCH, WCAG AA+) */
-    --brand-bg: oklch(97.8% 0.005 170);
-    --brand-surface: oklch(99.6% 0.002 170);
-    --brand-well: oklch(94.4% 0.009 172);
-    --brand-fg: oklch(19.5% 0.025 198);
-    --brand-muted: oklch(44.5% 0.022 195);
-    --brand-border: oklch(86.8% 0.012 182);
-    --brand-border-subtle: oklch(91.5% 0.008 176);
+    /* Oathan Rex Porcelain Light & Drafting Emerald Tokens (WCAG AAA/AA) */
+    --brand-bg: #f8fafc;
+    --brand-surface: #ffffff;
+    --brand-well: #f1f5f9;
+    --brand-fg: #0f172a;
+    --brand-muted: #64748b;
+    --brand-border: #e2e8f0;
+    --brand-border-subtle: #f1f5f9;
+    --brand-card-bg: #ffffff;
 
-    /* Primary Drafting Emerald (5.4:1 contrast with white button text) */
-    --brand-accent: oklch(45.5% 0.145 162);
-    --brand-accent-hover: oklch(39.5% 0.145 162);
+    /* Primary Drafting Emerald */
+    --brand-accent: #059669;
+    --brand-accent-hover: #047857;
     --brand-accent-fg: #ffffff;
-    --brand-accent-ink: oklch(40.5% 0.138 162);
-    --brand-accent-soft: oklch(93.8% 0.042 162);
-    --brand-accent-ring: oklch(45.5% 0.145 162);
+    --brand-accent-ink: #047857;
+    --brand-accent-soft: rgba(5, 150, 105, 0.08);
+    --brand-accent-ring: #059669;
 
-    /* Secondary Starlight Amber (4.7:1+ on white) */
-    --brand-amber: oklch(50% 0.15 70);
-    --brand-amber-soft: oklch(95.5% 0.04 80);
+    /* Secondary Amber */
+    --brand-amber: #d97706;
+    --brand-amber-soft: rgba(217, 119, 6, 0.1);
 
     /* Brand Emblem Gradient Tokens */
     --logo-bg-grad: linear-gradient(145deg, #0b1f22 0%, #113338 58%, #09191c 100%);
     --logo-glow-grad: radial-gradient(circle at 28% 30%, rgba(52, 211, 153, 0.24), transparent 64%);
-    --logo-ring-color: #34d399;
-    --logo-ink-color: #f8fafc;
+    --logo-ring-color: #059669;
+    --logo-ink-color: #0f172a;
   }
 
   html.dark {
     color-scheme: dark;
 
-    --brand-bg: oklch(14.5% 0.015 204);
-    --brand-surface: oklch(19.5% 0.018 204);
-    --brand-well: oklch(17.0% 0.016 204);
-    --brand-fg: oklch(95.5% 0.006 180);
-    --brand-muted: oklch(73.5% 0.014 190);
-    --brand-border: oklch(30.5% 0.018 200);
-    --brand-border-subtle: oklch(25.0% 0.016 202);
+    /* Obsidian Deep Space Tokens matching CSS Studio Pro */
+    --brand-bg: #08090d;
+    --brand-surface: #111218;
+    --brand-well: #181922;
+    --brand-fg: #f8fafc;
+    --brand-muted: #94a3b8;
+    --brand-border: #232530;
+    --brand-border-subtle: #1c1d27;
+    --brand-card-bg: #111218;
 
-    /* Luminous Drafting Emerald (>9.5:1 contrast with deep ink button text) */
-    --brand-accent: oklch(69.5% 0.155 160);
-    --brand-accent-hover: oklch(75.5% 0.155 160);
-    --brand-accent-fg: oklch(14.5% 0.028 188);
-    --brand-accent-ink: oklch(75.5% 0.145 160);
-    --brand-accent-soft: oklch(26.0% 0.052 165);
-    --brand-accent-ring: oklch(75.5% 0.145 160);
+    /* Luminous Drafting Emerald (>9.5:1 contrast against dark ink) */
+    --brand-accent: #10b981;
+    --brand-accent-hover: #34d399;
+    --brand-accent-fg: #08090d;
+    --brand-accent-ink: #34d399;
+    --brand-accent-soft: rgba(16, 185, 129, 0.12);
+    --brand-accent-ring: #10b981;
 
-    --brand-amber: oklch(80% 0.145 82);
-    --brand-amber-soft: oklch(26% 0.045 78);
+    --brand-amber: #fbbf24;
+    --brand-amber-soft: rgba(251, 191, 36, 0.12);
+
+    --logo-ring-color: #34d399;
+    --logo-ink-color: #f8fafc;
   }
 
   html {
@@ -173,12 +179,16 @@
     border-radius: var(--radius-surface);
     border: 1px solid var(--brand-border);
     background-color: var(--brand-surface);
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.04);
+    transition: border-color 150ms var(--ease-brand), box-shadow 150ms var(--ease-brand);
   }
 
   .surface-panel {
     border-radius: var(--radius-card);
     border: 1px solid var(--brand-border);
     background-color: var(--brand-surface);
+    box-shadow: 0 4px 20px -4px rgba(0, 0, 0, 0.05);
+    transition: border-color 150ms var(--ease-brand), box-shadow 150ms var(--ease-brand);
   }
 
   /* Focus, Button & Form Primitives */
@@ -198,11 +208,18 @@
     font-weight: 600;
     white-space: nowrap;
     flex-shrink: 0;
-    transition: background-color 150ms var(--ease-brand), transform 150ms var(--ease-brand);
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.08), inset 0 1px 0 rgba(255, 255, 255, 0.2);
+    transition: background-color 150ms var(--ease-brand), transform 150ms var(--ease-brand), box-shadow 150ms var(--ease-brand);
   }
 
   .btn-primary:hover {
     background-color: var(--brand-accent-hover);
+    transform: translateY(-1px);
+    box-shadow: 0 4px 14px color-mix(in srgb, var(--brand-accent) 28%, transparent);
+  }
+
+  .btn-primary:active {
+    transform: translateY(0);
   }
 
   .btn-primary:focus-visible {
@@ -222,11 +239,18 @@
     font-weight: 600;
     white-space: nowrap;
     flex-shrink: 0;
-    transition: background-color 150ms var(--ease-brand), transform 150ms var(--ease-brand);
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.03);
+    transition: background-color 150ms var(--ease-brand), border-color 150ms var(--ease-brand), transform 150ms var(--ease-brand);
   }
 
   .btn-secondary:hover {
     background-color: var(--brand-well);
+    border-color: var(--brand-border-subtle);
+    transform: translateY(-1px);
+  }
+
+  .btn-secondary:active {
+    transform: translateY(0);
   }
 
   .btn-secondary:focus-visible {
@@ -261,16 +285,17 @@
     display: inline-flex;
     align-items: center;
     justify-content: center;
-    border-radius: var(--radius-control);
+    border-radius: 9999px;
     border: 1px solid var(--brand-border);
     background-color: var(--brand-surface);
     color: var(--brand-fg);
     flex-shrink: 0;
-    transition: background-color 150ms var(--ease-brand), color 150ms var(--ease-brand);
+    transition: background-color 150ms var(--ease-brand), color 150ms var(--ease-brand), transform 150ms var(--ease-brand);
   }
 
   .btn-icon:hover {
     background-color: var(--brand-well);
+    transform: scale(1.05);
   }
 
   .btn-icon:focus-visible {
@@ -280,11 +305,11 @@
 
   .form-field {
     width: 100%;
-    border-radius: var(--radius-control);
+    border-radius: 0.75rem;
     border: 1px solid var(--brand-border);
     background-color: var(--brand-surface);
     color: var(--brand-fg);
-    transition: border-color 150ms ease;
+    transition: border-color 150ms ease, box-shadow 150ms ease;
   }
 
   .form-field::placeholder {

@@ -1,4 +1,5 @@
-import { ArrowRight, Coffee, ExternalLink, Mail } from 'lucide-react';
+import { ArrowRight, Check, Coffee, Copy, ExternalLink, Mail } from 'lucide-react';
+import { useState } from 'react';
 import { OATHANREX_CONTACT } from '../data/portfolioData';
 
 interface ContactSectionProps {
@@ -6,6 +7,18 @@ interface ContactSectionProps {
 }
 
 export function ContactSection({ onOpenProjectBrief }: ContactSectionProps) {
+  const [copied, setCopied] = useState(false);
+
+  const handleCopyEmail = async () => {
+    try {
+      await navigator.clipboard.writeText(OATHANREX_CONTACT.email);
+      setCopied(true);
+      setTimeout(() => setCopied(false), 2400);
+    } catch {
+      // Fallback
+    }
+  };
+
   return (
     <section id="contact" className="section-shell--end">
       <div className="layout-container">
@@ -22,17 +35,37 @@ export function ContactSection({ onOpenProjectBrief }: ContactSectionProps) {
               <a
                 href={`mailto:${OATHANREX_CONTACT.email}`}
                 className="btn-primary min-h-[44px] px-5 py-2.5 text-sm"
+                aria-label="Send email to Oathan Rex"
               >
                 <Mail className="h-4 w-4" aria-hidden="true" />
-                Email {OATHANREX_CONTACT.email}
+                <span>Send Email</span>
               </a>
+
+              <button
+                type="button"
+                onClick={handleCopyEmail}
+                className="btn-secondary min-h-[44px] px-4 py-2.5 text-sm"
+                aria-label="Copy email address to clipboard"
+              >
+                {copied ? (
+                  <>
+                    <Check className="h-4 w-4 text-[var(--brand-accent-ink)]" aria-hidden="true" />
+                    <span className="text-[var(--brand-accent-ink)]">Copied to Clipboard</span>
+                  </>
+                ) : (
+                  <>
+                    <Copy className="h-4 w-4 text-[var(--brand-muted)]" aria-hidden="true" />
+                    <span>Copy Email</span>
+                  </>
+                )}
+              </button>
 
               <button
                 type="button"
                 onClick={onOpenProjectBrief}
                 className="btn-secondary min-h-[44px] px-5 py-2.5 text-sm"
               >
-                Send Project Brief
+                <span>Send Project Brief</span>
                 <ArrowRight className="h-4 w-4" aria-hidden="true" />
               </button>
             </div>

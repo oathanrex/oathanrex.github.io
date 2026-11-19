@@ -12,6 +12,28 @@ export const OATHANREX_CONTACT = {
 
 export const CASE_STUDIES: CaseStudy[] = [
   {
+    id: 'css-studio-pro',
+    repoName: 'css-studio-pro',
+    title: 'CSS Studio Pro: OKLCH Color & Gradient Workstation',
+    category: 'Design Systems',
+    year: '2026',
+    summary:
+      'Ultra-fast client-side CSS gradient and color workstation featuring Adobe Color Contrast parity, dual-engine light/dark themes, and multi-format token export.',
+    impactMetric: 'WCAG AAA & OKLCH',
+    challenge:
+      'Designers and front-end engineers lack high-precision color tools that run 100% in-browser with true OKLCH perceptually uniform interpolation.',
+    architecture:
+      'Engineered with Vite, React 19, and Tailwind CSS v4, supporting real-time dual-theme switching, adaptive mobile command drawer, and 4K wallpaper rasterization.',
+    outcomes: [
+      'Adobe Color contrast parity with AAA verification and auto-ratio suggestions',
+      'Instant export to CSS, Tailwind, OKLCH Design Tokens, SVG, and Flutter',
+      'Persistent local token vault with zero server dependency',
+    ],
+    stack: ['TypeScript', 'React 19', 'Tailwind v4', 'OKLCH', 'Canvas API'],
+    repoUrl: 'https://github.com/oathanrex/css-studio-pro',
+    liveUrl: 'https://oathanrex.github.io/css-studio-pro/',
+  },
+  {
     id: 'perspective-fix',
     repoName: 'perspective-fix',
     title: 'PerspectiveFix: Browser Document & Image Warp Tool',
@@ -243,6 +265,24 @@ export const FALLBACK_PROFILE: GitHubProfile = {
 };
 
 export const FALLBACK_REPOS: GitHubRepo[] = [
+  {
+    id: 102,
+    name: 'css-studio-pro',
+    full_name: 'oathanrex/css-studio-pro',
+    description:
+      'Ultra-fast CSS & OKLCH color workstation, dual-engine theme generator, and accessible UI gradient studio.',
+    html_url: 'https://github.com/oathanrex/css-studio-pro',
+    clone_url: 'https://github.com/oathanrex/css-studio-pro.git',
+    language: 'TypeScript',
+    stargazers_count: 9,
+    forks_count: 2,
+    has_pages: true,
+    fork: false,
+    archived: false,
+    updated_at: '2026-11-19T06:00:00Z',
+    created_at: '2026-11-18T10:00:00Z',
+    owner: { login: 'oathanrex' },
+  },
   {
     id: 101,
     name: 'adsenseready-ai',

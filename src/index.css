@@ -1,3 +1,31 @@
 @import "tailwindcss";
 @custom-variant dark (&:where(.dark, .dark *));
 @import "./styles/DesignTokens.css";
+
+/* Sleek Obsidian / Porcelain Custom Scrollbars */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+::-webkit-scrollbar-thumb {
+  background: #232530;
+  border-radius: 9999px;
+}
+html.light ::-webkit-scrollbar-thumb {
+  background: #cbd5e1;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #3f3f46;
+}
+html.light ::-webkit-scrollbar-thumb:hover {
+  background: #94a3b8;
+}
+
+/* Micro-dot drafting canvas grid */
+.drafting-grid-dots {
+  background-image: radial-gradient(color-mix(in srgb, var(--brand-fg) 8%, transparent) 1px, transparent 1px);
+  background-size: 24px 24px;
+}

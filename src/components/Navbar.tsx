@@ -1,10 +1,12 @@
-import { Menu, X } from 'lucide-react';
+import { Menu, Moon, Sun, X } from 'lucide-react';
 import { motion, useScroll, useSpring } from 'motion/react';
 import { useEffect, useState } from 'react';
 import { BrandLogo } from '../ui/BrandLogo';
 
 interface NavbarProps {
   onOpenProjectBrief: () => void;
+  theme: 'light' | 'dark';
+  onToggleTheme: () => void;
 }
 
 const NAV_ITEMS = [
@@ -14,7 +16,7 @@ const NAV_ITEMS = [
   { id: 'contact', label: 'Contact', href: '#contact' },
 ] as const;
 
-export function Navbar({ onOpenProjectBrief }: NavbarProps) {
+export function Navbar({ onOpenProjectBrief, theme, onToggleTheme }: NavbarProps) {
   const [mobileOpen, setMobileOpen] = useState(false);
   const [activeSection, setActiveSection] = useState<string>('work');
   const { scrollYProgress } = useScroll();
@@ -103,8 +105,22 @@ export function Navbar({ onOpenProjectBrief }: NavbarProps) {
           </menu>
         </nav>
 
-        {/* Zone 3: Single Primary Action + Mobile Drawer Toggle */}
-        <div className="flex items-center gap-3 shrink-0">
+        {/* Zone 3: Theme Toggle Pill + Single Primary Action + Mobile Drawer Toggle */}
+        <div className="flex items-center gap-2.5 shrink-0">
+          <button
+            type="button"
+            onClick={onToggleTheme}
+            aria-label={`Switch to ${theme === 'dark' ? 'light' : 'dark'} theme`}
+            title={`Toggle theme (T) · Currently ${theme === 'dark' ? 'Dark' : 'Light'}`}
+            className="btn-icon h-10 w-10 text-[var(--brand-muted)] hover:text-[var(--brand-fg)]"
+          >
+            {theme === 'dark' ? (
+              <Sun className="h-4 w-4" aria-hidden="true" />
+            ) : (
+              <Moon className="h-4 w-4" aria-hidden="true" />
+            )}
+          </button>
+
           <button
             type="button"
             onClick={onOpenProjectBrief}
@@ -119,7 +135,7 @@ export function Navbar({ onOpenProjectBrief }: NavbarProps) {
             aria-expanded={mobileOpen}
             aria-controls="mobile-nav-drawer"
             aria-label={mobileOpen ? 'Close navigation menu' : 'Open navigation menu'}
-            className="btn-icon h-11 w-11 md:hidden"
+            className="btn-icon h-10 w-10 md:hidden"
           >
             {mobileOpen ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}
           </button>
@@ -153,6 +169,26 @@ export function Navbar({ onOpenProjectBrief }: NavbarProps) {
                 </li>
               );
             })}
+            <li className="pt-2 flex items-center justify-between border-t border-[var(--brand-border-subtle)] mt-1">
+              <span className="text-sm font-medium text-[var(--brand-muted)]">Theme</span>
+              <button
+                type="button"
+                onClick={onToggleTheme}
+                className="btn-secondary h-9 px-3 text-xs gap-1.5"
+              >
+                {theme === 'dark' ? (
+                  <>
+                    <Sun className="h-3.5 w-3.5 text-amber-400" />
+                    <span>Light Mode</span>
+                  </>
+                ) : (
+                  <>
+                    <Moon className="h-3.5 w-3.5 text-indigo-400" />
+                    <span>Dark Mode</span>
+                  </>
+                )}
+              </button>
+            </li>
             <li className="pt-2">
               <button
                 type="button"

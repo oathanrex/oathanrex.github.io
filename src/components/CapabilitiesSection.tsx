@@ -55,7 +55,7 @@ export function CapabilitiesSection() {
           {/* Right: Segmented Stack Matrix */}
           <div className="lg:col-span-7">
             <div
-              className="flex flex-wrap gap-1.5 rounded-xl border border-[var(--brand-border)] bg-[var(--brand-well)] p-1.5"
+              className="flex flex-wrap gap-1.5 rounded-full border border-[var(--brand-border)] bg-[var(--brand-well)] p-1.5"
               role="tablist"
               aria-label="Technology capability categories"
             >
@@ -68,7 +68,7 @@ export function CapabilitiesSection() {
                     role="tab"
                     aria-selected={active}
                     onClick={() => setSelectedId(group.id)}
-                    className={`focus-ring min-h-[36px] rounded-lg px-3.5 py-1.5 text-xs font-semibold transition-colors whitespace-nowrap shrink-0 ${
+                    className={`focus-ring min-h-[36px] rounded-full px-4 py-1.5 text-xs font-semibold transition-all whitespace-nowrap shrink-0 ${
                       active
                         ? 'bg-[var(--brand-surface)] text-[var(--brand-fg)] shadow-xs'
                         : 'text-[var(--brand-muted)] hover:bg-[var(--brand-surface)]/60 hover:text-[var(--brand-fg)]'

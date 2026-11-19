@@ -68,16 +68,37 @@ export default function App() {
 
   const [theme, setTheme] = useState<'light' | 'dark'>(() => {
     try {
-      return localStorage.getItem('oathanrex-theme') === 'dark' ? 'dark' : 'light';
+      const saved = localStorage.getItem('oathanrex-theme');
+      if (saved === 'dark' || saved === 'light') return saved;
+      if (typeof window !== 'undefined' && window.matchMedia('(prefers-color-scheme: dark)').matches) {
+        return 'dark';
+      }
+      return 'dark';
     } catch {
-      return 'light';
+      return 'dark';
     }
   });
 
   const [activeModal, setActiveModal] = useState<ActiveModal>(null);
 
   useEffect(() => {
-    document.documentElement.classList.toggle('dark', theme === 'dark');
+    const root = document.documentElement;
+    const metaTheme = document.querySelector('meta[name="theme-color"]');
+
+    if (theme === 'dark') {
+      root.classList.add('dark');
+      root.classList.remove('light');
+      document.body.style.backgroundColor = '#08090d';
+      document.body.style.color = '#f8fafc';
+      if (metaTheme) metaTheme.setAttribute('content', '#08090d');
+    } else {
+      root.classList.add('light');
+      root.classList.remove('dark');
+      document.body.style.backgroundColor = '#f8fafc';
+      document.body.style.color = '#0f172a';
+      if (metaTheme) metaTheme.setAttribute('content', '#f8fafc');
+    }
+
     try {
       localStorage.setItem('oathanrex-theme', theme);
     } catch {
@@ -151,7 +172,11 @@ export default function App() {
   return (
     <MotionConfig reducedMotion="user">
       <div className="min-h-screen bg-[var(--brand-bg)] text-[var(--brand-fg)] transition-colors duration-150">
-        <Navbar onOpenProjectBrief={() => setActiveModal({ type: 'brief' })} />
+        <Navbar
+          onOpenProjectBrief={() => setActiveModal({ type: 'brief' })}
+          theme={theme}
+          onToggleTheme={toggleTheme}
+        />
 
         <main>
           <Suspense
