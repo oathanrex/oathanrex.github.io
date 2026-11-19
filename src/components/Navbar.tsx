@@ -1,4 +1,4 @@
-import { Menu, Moon, Sun, X } from 'lucide-react';
+import { Keyboard, Menu, Moon, Search, Sun, X } from 'lucide-react';
 import { motion, useScroll, useSpring } from 'motion/react';
 import { useEffect, useState } from 'react';
 import { BrandLogo } from '../ui/BrandLogo';
@@ -7,6 +7,8 @@ interface NavbarProps {
   onOpenProjectBrief: () => void;
   theme: 'light' | 'dark';
   onToggleTheme: () => void;
+  onOpenShortcuts: () => void;
+  onOpenCommandPalette: () => void;
 }
 
 const NAV_ITEMS = [
@@ -16,7 +18,13 @@ const NAV_ITEMS = [
   { id: 'contact', label: 'Contact', href: '#contact' },
 ] as const;
 
-export function Navbar({ onOpenProjectBrief, theme, onToggleTheme }: NavbarProps) {
+export function Navbar({
+  onOpenProjectBrief,
+  theme,
+  onToggleTheme,
+  onOpenShortcuts,
+  onOpenCommandPalette,
+}: NavbarProps) {
   const [mobileOpen, setMobileOpen] = useState(false);
   const [activeSection, setActiveSection] = useState<string>('work');
   const { scrollYProgress } = useScroll();
@@ -54,17 +62,17 @@ export function Navbar({ onOpenProjectBrief, theme, onToggleTheme }: NavbarProps
   }, []);
 
   return (
-    <header className="sticky top-0 z-40 border-b border-[var(--brand-border)] bg-[var(--brand-bg)]/92 backdrop-blur-md">
+    <header className="sticky top-0 z-40 border-b border-[var(--brand-border)] bg-[var(--brand-bg)]/88 backdrop-blur-xl transition-colors duration-200">
       <motion.div
         aria-hidden="true"
         style={{ scaleX, transformOrigin: '0% 50%' }}
         className="pointer-events-none absolute top-0 right-0 left-0 h-[2px] bg-[var(--brand-accent)]"
       />
-      <div className="layout-container flex h-16 items-center justify-between gap-8">
+      <div className="layout-container flex h-16 items-center justify-between gap-4 sm:gap-8">
         {/* Zone 1: Official OathanRex Logo + single-line wordmark */}
         <a
           href="#top"
-          className="focus-ring group inline-flex items-center gap-2.5 font-display text-lg font-bold tracking-tight text-[var(--brand-fg)] whitespace-nowrap shrink-0"
+          className="focus-ring group inline-flex items-center gap-2.5 font-display text-base sm:text-lg font-bold tracking-tight text-[var(--brand-fg)] whitespace-nowrap shrink-0"
         >
           <BrandLogo
             size={34}
@@ -105,14 +113,52 @@ export function Navbar({ onOpenProjectBrief, theme, onToggleTheme }: NavbarProps
           </menu>
         </nav>
 
-        {/* Zone 3: Theme Toggle Pill + Single Primary Action + Mobile Drawer Toggle */}
-        <div className="flex items-center gap-2.5 shrink-0">
+        {/* Zone 3: Command Trigger + Shortcuts + Theme Toggle + Primary CTA + Mobile Triggers */}
+        <div className="flex items-center gap-2 sm:gap-2.5 shrink-0">
+          {/* Desktop Command Palette Pill */}
+          <button
+            type="button"
+            onClick={onOpenCommandPalette}
+            aria-label="Open command palette"
+            title="Command Palette (Ctrl K)"
+            className="btn-secondary hidden lg:inline-flex items-center gap-2.5 h-9 px-3.5 text-xs font-medium text-[var(--brand-muted)] hover:text-[var(--brand-fg)] hover:border-[var(--brand-accent)]/50 transition-all rounded-full"
+          >
+            <Search className="h-3.5 w-3.5" aria-hidden="true" />
+            <span className="font-sans">Search</span>
+            <kbd className="font-mono text-[10px] px-1.5 py-0.5 rounded bg-[var(--brand-well)] text-[var(--brand-fg)] border border-[var(--brand-border)]">
+              Ctrl K
+            </kbd>
+          </button>
+
+          {/* Mobile Quick Search Icon Button (opens Command Palette directly) */}
+          <button
+            type="button"
+            onClick={onOpenCommandPalette}
+            aria-label="Search and command palette"
+            title="Search (Ctrl K)"
+            className="btn-icon h-9 w-9 text-[var(--brand-muted)] hover:text-[var(--brand-fg)] lg:hidden"
+          >
+            <Search className="h-4 w-4" aria-hidden="true" />
+          </button>
+
+          {/* Keyboard Shortcuts Button */}
+          <button
+            type="button"
+            onClick={onOpenShortcuts}
+            aria-label="Open keyboard shortcuts"
+            title="Keyboard shortcuts (?)"
+            className="btn-icon hidden sm:inline-flex h-9 w-9 text-[var(--brand-muted)] hover:text-[var(--brand-fg)]"
+          >
+            <Keyboard className="h-4 w-4" aria-hidden="true" />
+          </button>
+
+          {/* Theme Toggle Pill */}
           <button
             type="button"
             onClick={onToggleTheme}
             aria-label={`Switch to ${theme === 'dark' ? 'light' : 'dark'} theme`}
             title={`Toggle theme (T) · Currently ${theme === 'dark' ? 'Dark' : 'Light'}`}
-            className="btn-icon h-10 w-10 text-[var(--brand-muted)] hover:text-[var(--brand-fg)]"
+            className="btn-icon h-9 w-9 text-[var(--brand-muted)] hover:text-[var(--brand-fg)]"
           >
             {theme === 'dark' ? (
               <Sun className="h-4 w-4" aria-hidden="true" />
@@ -121,6 +167,7 @@ export function Navbar({ onOpenProjectBrief, theme, onToggleTheme }: NavbarProps
             )}
           </button>
 
+          {/* Collaborate Action */}
           <button
             type="button"
             onClick={onOpenProjectBrief}
@@ -129,26 +176,47 @@ export function Navbar({ onOpenProjectBrief, theme, onToggleTheme }: NavbarProps
             Collaborate
           </button>
 
+          {/* Mobile Drawer Hamburger */}
           <button
             type="button"
             onClick={() => setMobileOpen((prev) => !prev)}
             aria-expanded={mobileOpen}
             aria-controls="mobile-nav-drawer"
             aria-label={mobileOpen ? 'Close navigation menu' : 'Open navigation menu'}
-            className="btn-icon h-10 w-10 md:hidden"
+            className="btn-icon h-9 w-9 md:hidden"
           >
-            {mobileOpen ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}
+            {mobileOpen ? <X className="h-4.5 w-4.5" /> : <Menu className="h-4.5 w-4.5" />}
           </button>
         </div>
       </div>
 
-      {/* Mobile Navigation Drawer */}
+      {/* Refined Mobile Navigation Sheet / Drawer */}
       {mobileOpen && (
         <nav
           id="mobile-nav-drawer"
           aria-label="Mobile Navigation"
-          className="border-t border-[var(--brand-border)] bg-[var(--brand-surface)] px-6 py-4 md:hidden"
+          className="border-t border-[var(--brand-border)] bg-[var(--brand-surface)]/98 backdrop-blur-2xl px-5 pt-4 pb-6 md:hidden shadow-xl"
         >
+          {/* Quick Search Tap Strip */}
+          <div className="mb-3">
+            <button
+              type="button"
+              onClick={() => {
+                setMobileOpen(false);
+                onOpenCommandPalette();
+              }}
+              className="flex w-full items-center justify-between rounded-full border border-[var(--brand-border)] bg-[var(--brand-well)] px-4 py-2.5 text-left text-sm text-[var(--brand-muted)] active:scale-[0.99] transition-transform"
+            >
+              <div className="flex items-center gap-2.5 min-w-0">
+                <Search className="h-4 w-4 text-[var(--brand-muted)] shrink-0" />
+                <span className="truncate">Search projects, stack, tools...</span>
+              </div>
+              <kbd className="font-mono text-[10px] px-1.5 py-0.5 rounded bg-[var(--brand-surface)] border border-[var(--brand-border)] text-[var(--brand-fg)] shrink-0">
+                Ctrl K
+              </kbd>
+            </button>
+          </div>
+
           <menu className="flex flex-col gap-1.5">
             {NAV_ITEMS.map((item) => {
               const isActive = activeSection === item.id;
@@ -158,23 +226,39 @@ export function Navbar({ onOpenProjectBrief, theme, onToggleTheme }: NavbarProps
                     href={item.href}
                     aria-current={isActive ? 'location' : undefined}
                     onClick={() => setMobileOpen(false)}
-                    className={`focus-ring flex min-h-[44px] items-center justify-between rounded-lg px-3 text-base font-medium transition-colors ${
+                    className={`focus-ring flex min-h-[46px] items-center justify-between rounded-xl px-4 text-sm font-semibold transition-all ${
                       isActive
-                        ? 'bg-[var(--brand-accent-soft)] text-[var(--brand-accent-ink)] font-semibold'
-                        : 'text-[var(--brand-fg)] hover:bg-[var(--brand-well)]'
+                        ? 'bg-[var(--brand-accent-soft)] text-[var(--brand-accent-ink)]'
+                        : 'text-[var(--brand-fg)] hover:bg-[var(--brand-well)] active:bg-[var(--brand-well)]'
                     }`}
                   >
                     <span>{item.label}</span>
+                    {isActive && (
+                      <span className="h-2 w-2 rounded-full bg-[var(--brand-accent)]" />
+                    )}
                   </a>
                 </li>
               );
             })}
-            <li className="pt-2 flex items-center justify-between border-t border-[var(--brand-border-subtle)] mt-1">
-              <span className="text-sm font-medium text-[var(--brand-muted)]">Theme</span>
+
+            {/* Mobile Utility Actions Bar */}
+            <li className="pt-3 border-t border-[var(--brand-border-subtle)] mt-1.5 flex items-center gap-2">
+              <button
+                type="button"
+                onClick={() => {
+                  setMobileOpen(false);
+                  onOpenShortcuts();
+                }}
+                className="btn-secondary flex-1 min-h-[40px] px-3 text-xs gap-1.5"
+              >
+                <Keyboard className="h-3.5 w-3.5 text-[var(--brand-muted)]" />
+                <span>Shortcuts (?)</span>
+              </button>
+
               <button
                 type="button"
                 onClick={onToggleTheme}
-                className="btn-secondary h-9 px-3 text-xs gap-1.5"
+                className="btn-secondary flex-1 min-h-[40px] px-3 text-xs gap-1.5"
               >
                 {theme === 'dark' ? (
                   <>
@@ -189,6 +273,8 @@ export function Navbar({ onOpenProjectBrief, theme, onToggleTheme }: NavbarProps
                 )}
               </button>
             </li>
+
+            {/* Mobile Primary Action */}
             <li className="pt-2">
               <button
                 type="button"
@@ -196,9 +282,9 @@ export function Navbar({ onOpenProjectBrief, theme, onToggleTheme }: NavbarProps
                   setMobileOpen(false);
                   onOpenProjectBrief();
                 }}
-                className="btn-primary flex min-h-[44px] w-full px-4 py-2.5 text-sm"
+                className="btn-primary flex min-h-[46px] w-full items-center justify-center px-4 py-2.5 text-sm font-semibold shadow-xs active:scale-[0.98] transition-transform"
               >
-                Collaborate
+                Send Project Brief &amp; Collaborate
               </button>
             </li>
           </menu>

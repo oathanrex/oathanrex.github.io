@@ -1,4 +1,4 @@
-import { ArrowDown, ArrowUpRight, ExternalLink, Keyboard, Moon, Sun } from 'lucide-react';
+import { ArrowDown, ArrowUpRight, ExternalLink } from 'lucide-react';
 import { motion } from 'motion/react';
 import { lazy, Suspense } from 'react';
 import { OATHANREX_CONTACT } from '../data/portfolioData';
@@ -15,18 +15,12 @@ interface HeroProps {
   profile: GitHubProfile;
   stats: PortfolioStats;
   theme: 'light' | 'dark';
-  onToggleTheme: () => void;
-  onOpenShortcuts: () => void;
-  onOpenCommandPalette: () => void;
 }
 
 export function Hero({
   profile,
   stats,
   theme,
-  onToggleTheme,
-  onOpenShortcuts,
-  onOpenCommandPalette,
 }: HeroProps) {
   const proofMetrics = [
     {
@@ -87,13 +81,13 @@ export function Hero({
           transition={{ duration: 0.28, ease: HERO_EASE }}
           className="max-w-3xl"
         >
-          {/* Compact Identity & Single Utility Control Strip */}
+          {/* Identity & Status Pill */}
           <div className="flex flex-wrap items-center justify-between gap-4">
-            <div className="flex items-center gap-3 min-w-0">
+            <div className="flex items-center gap-3.5 min-w-0">
               <BrandLogo size={48} shape="circle" className="shadow-xs ring-2 ring-[var(--brand-border)]" />
 
               <div className="min-w-0">
-                <div className="truncate text-sm font-semibold text-[var(--brand-fg)]">
+                <div className="truncate text-base font-semibold text-[var(--brand-fg)]">
                   {profile.name || OATHANREX_CONTACT.name}{' '}
                   <span className="font-mono text-xs font-normal text-[var(--brand-muted)]">
                     ({OATHANREX_CONTACT.handle})
@@ -111,56 +105,29 @@ export function Hero({
               </div>
             </div>
 
-            <div className="flex items-center gap-2 shrink-0">
-              <button
-                type="button"
-                onClick={onToggleTheme}
-                aria-label={`Switch to ${theme === 'dark' ? 'light' : 'dark'} theme`}
-                title="Toggle theme (T)"
-                className="btn-icon h-9 w-9"
-              >
-                {theme === 'dark' ? (
-                  <Sun className="h-4 w-4" aria-hidden="true" />
-                ) : (
-                  <Moon className="h-4 w-4" aria-hidden="true" />
-                )}
-              </button>
-
-              <button
-                type="button"
-                onClick={onOpenShortcuts}
-                aria-label="Open keyboard shortcuts"
-                title="Keyboard shortcuts (?)"
-                className="btn-icon h-9 w-9"
-              >
-                <Keyboard className="h-4 w-4" aria-hidden="true" />
-              </button>
-
-              <button
-                type="button"
-                onClick={onOpenCommandPalette}
-                aria-label="Open quick command palette"
-                className="btn-secondary hidden min-h-[36px] gap-1.5 px-2.5 py-1.5 font-mono text-xs font-medium sm:inline-flex"
-              >
-                <kbd>Ctrl K</kbd>
-              </button>
+            <div className="inline-flex items-center gap-2 rounded-full border border-[var(--brand-border)] bg-[var(--brand-surface)] px-3.5 py-1.5 text-xs font-medium text-[var(--brand-muted)] shadow-2xs">
+              <span className="relative flex h-2 w-2">
+                <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-emerald-400 opacity-75"></span>
+                <span className="relative inline-flex h-2 w-2 rounded-full bg-emerald-500"></span>
+              </span>
+              <span>Available for collaborations</span>
             </div>
           </div>
 
-          <h1 className="mt-8 font-display text-[clamp(2.4rem,5.2vw,4.15rem)] font-bold leading-[1.04] tracking-[-0.03em] text-balance text-[var(--brand-fg)]">
+          <h1 className="mt-8 font-display text-[clamp(2.1rem,6.5vw,4.15rem)] font-bold leading-[1.06] tracking-[-0.03em] text-balance text-[var(--brand-fg)]">
             Browser software that stays on your device.
           </h1>
 
-          <p className="mt-5 max-w-[58ch] text-base leading-relaxed text-[var(--brand-muted)] sm:text-xl">
+          <p className="mt-5 max-w-[58ch] text-sm leading-relaxed text-[var(--brand-muted)] sm:text-xl">
             Building fast, privacy-first web utilities, AI and OCR pipelines, and developer tools
             like PerspectiveFix and GitGet that run locally with zero uploads.
           </p>
 
           {/* Primary & Secondary Actions */}
-          <div className="mt-8 flex flex-wrap items-center gap-3.5">
+          <div className="mt-8 flex flex-col sm:flex-row items-stretch sm:items-center gap-3.5">
             <a
               href="#projects"
-              className="btn-primary min-h-[46px] px-6 py-2.5 text-sm shadow-xs hover:-translate-y-0.5 active:translate-y-0"
+              className="btn-primary min-h-[46px] px-6 py-2.5 text-sm shadow-xs hover:-translate-y-0.5 active:translate-y-0 text-center"
             >
               Browse Projects
               <ArrowDown className="h-4 w-4" aria-hidden="true" />
@@ -170,7 +137,7 @@ export function Hero({
               href={OATHANREX_CONTACT.website}
               target="_blank"
               rel="noopener noreferrer"
-              className="btn-secondary min-h-[46px] px-6 py-2.5 text-sm hover:-translate-y-0.5 active:translate-y-0"
+              className="btn-secondary min-h-[46px] px-6 py-2.5 text-sm hover:-translate-y-0.5 active:translate-y-0 text-center"
             >
               Launch PerspectiveFix
               <ArrowUpRight className="h-4 w-4" aria-hidden="true" />

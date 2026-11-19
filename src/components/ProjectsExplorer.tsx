@@ -434,7 +434,11 @@ export function ProjectsExplorer({
             </div>
           </div>
 
-          <div className="flex flex-wrap items-center gap-2" role="tablist" aria-label="Filter repositories">
+          <div
+            className="flex overflow-x-auto sm:flex-wrap items-center gap-2 pb-1.5 scroll-smooth [scrollbar-width:none] [-webkit-overflow-scrolling:touch]"
+            role="tablist"
+            aria-label="Filter repositories"
+          >
             {filterTabs.map((tab) => {
               const active = categoryFilter === tab.id;
               return (

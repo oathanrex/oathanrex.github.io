@@ -176,6 +176,8 @@ export default function App() {
           onOpenProjectBrief={() => setActiveModal({ type: 'brief' })}
           theme={theme}
           onToggleTheme={toggleTheme}
+          onOpenShortcuts={() => setActiveModal({ type: 'shortcuts' })}
+          onOpenCommandPalette={() => setActiveModal({ type: 'palette' })}
         />
 
         <main>
@@ -186,9 +188,6 @@ export default function App() {
               profile={portfolio.profile}
               stats={stats}
               theme={theme}
-              onToggleTheme={toggleTheme}
-              onOpenShortcuts={() => setActiveModal({ type: 'shortcuts' })}
-              onOpenCommandPalette={() => setActiveModal({ type: 'palette' })}
             />
           </Suspense>
 
