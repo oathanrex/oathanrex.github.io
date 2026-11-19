@@ -1,14 +1,157 @@
 import { ArrowUpRight, GitFork, Star, X } from 'lucide-react';
 import { AnimatePresence, motion } from 'motion/react';
-import { useEffect, useMemo, useState } from 'react';
+import { useEffect, useMemo, useRef, useState } from 'react';
 import { CASE_STUDIES } from '../data/portfolioData';
 import type { CaseStudy, GitHubRepo } from '../types/portfolio';
+import { attachElectricBorder } from '../utils/distortionTransition';
 import { buildFlagshipShowcase } from '../utils/githubLogic';
 
 const WORK_EASE = [0.22, 1, 0.36, 1] as const;
 
 interface SelectedWorkProps {
   repos: GitHubRepo[];
+}
+
+interface FlagshipCardProps {
+  item: ReturnType<typeof buildFlagshipShowcase>[0];
+  onSelect: (study: CaseStudy) => void;
+}
+
+function FlagshipCard({ item, onSelect }: FlagshipCardProps) {
+  const { study, stars, forks, rank, hasLiveApp } = item;
+  const cardRef = useRef<HTMLElement | null>(null);
+
+  useEffect(() => {
+    if (cardRef.current) {
+      const cleanup = attachElectricBorder(cardRef.current, {
+        trigger: 'hover',
+        color: '#38bdf8',
+        thickness: 1.5,
+        glow: 14,
+        chaos: 4,
+      });
+      return cleanup;
+    }
+  }, []);
+
+  const displayHost = study.liveUrl.replace(/^https?:\/\//, '').replace(/\/$/, '');
+
+  return (
+    <motion.article
+      ref={cardRef}
+      key={study.id}
+      data-testid="flagship-card"
+      whileHover={{ y: -2 }}
+      transition={{ duration: 0.16, ease: WORK_EASE }}
+      onPointerMove={(e) => {
+        const rect = e.currentTarget.getBoundingClientRect();
+        e.currentTarget.style.setProperty('--spot-x', `${e.clientX - rect.left}px`);
+        e.currentTarget.style.setProperty('--spot-y', `${e.clientY - rect.top}px`);
+      }}
+      className="surface-panel group relative flex flex-col justify-between overflow-hidden p-6 transition-all duration-150 hover:border-[var(--brand-accent)]/60 hover:shadow-xs"
+    >
+      <div
+        aria-hidden="true"
+        className="pointer-events-none absolute inset-0 opacity-0 transition-opacity duration-200 group-hover:opacity-100"
+        style={{
+          background:
+            'radial-gradient(380px circle at var(--spot-x, 50%) var(--spot-y, 50%), color-mix(in oklab, var(--brand-accent) 13%, transparent), transparent 65%)',
+        }}
+      />
+      <div className="relative z-10">
+        <div className="flex items-center justify-between gap-3">
+          <div className="flex flex-wrap items-center gap-x-2 gap-y-1 text-xs font-medium text-[var(--brand-muted)]">
+            <span className="font-mono font-semibold text-[var(--brand-fg)]">
+              #{rank}
+            </span>
+            <span aria-hidden="true">·</span>
+            <span>{study.category}</span>
+            <span aria-hidden="true">·</span>
+            <span className="font-semibold text-[var(--brand-accent-ink)]">
+              {study.impactMetric}
+            </span>
+          </div>
+
+          <div className="flex items-center gap-3 shrink-0 font-mono text-xs tabular-nums">
+            <span className="inline-flex items-center gap-1 font-semibold text-[var(--brand-amber)]">
+              <Star className="h-3.5 w-3.5 fill-current" aria-hidden="true" />
+              {stars}
+            </span>
+            <span className="inline-flex items-center gap-1 text-[var(--brand-muted)]">
+              <GitFork className="h-3.5 w-3.5" aria-hidden="true" />
+              {forks}
+            </span>
+          </div>
+        </div>
+
+        <h3 className="mt-3.5 font-display text-xl font-bold tracking-tight text-[var(--brand-fg)]">
+          {study.title}
+        </h3>
+
+        <p className="mt-2 line-clamp-2 text-sm leading-relaxed text-[var(--brand-muted)]">
+          {study.summary}
+        </p>
+
+        <div className="mt-4 flex flex-wrap items-center gap-x-2 gap-y-1 font-mono text-xs text-[var(--brand-muted)]">
+          <span>{study.stack.join(' · ')}</span>
+          {hasLiveApp && (
+            <>
+              <span aria-hidden="true">·</span>
+              <span className="truncate text-[var(--brand-fg)]">
+                {displayHost}
+              </span>
+            </>
+          )}
+        </div>
+      </div>
+
+      <div className="relative z-10 mt-6 flex flex-wrap items-center justify-between gap-3 border-t border-[var(--brand-border-subtle)] pt-4">
+        <div className="flex items-center gap-2">
+          {hasLiveApp ? (
+            <>
+              <a
+                href={study.liveUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="btn-primary min-h-[38px] gap-1.5 px-3.5 py-1.5 text-xs"
+              >
+                Launch Live App
+                <ArrowUpRight className="h-3.5 w-3.5" aria-hidden="true" />
+              </a>
+              {!study.hideSource && study.repoUrl && (
+                <a
+                  href={study.repoUrl}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="btn-secondary min-h-[38px] gap-1.5 px-3.5 py-1.5 text-xs"
+                >
+                  Source
+                </a>
+              )}
+            </>
+          ) : (
+            <a
+              href={study.repoUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="btn-primary min-h-[38px] gap-1.5 px-3.5 py-1.5 text-xs"
+            >
+              Explore Repository
+              <ArrowUpRight className="h-3.5 w-3.5" aria-hidden="true" />
+            </a>
+          )}
+        </div>
+
+        <button
+          type="button"
+          onClick={() => onSelect(study)}
+          className="btn-ghost min-h-[38px] gap-1 px-2.5 py-1.5 text-xs font-semibold"
+        >
+          Architecture
+        </button>
+      </div>
+    </motion.article>
+  );
 }
 
 export function SelectedWork({ repos }: SelectedWorkProps) {
@@ -44,124 +187,13 @@ export function SelectedWork({ repos }: SelectedWorkProps) {
 
         {/* Dense 2x2 Editorial Product Grid */}
         <div className="mt-8 grid grid-cols-1 gap-5 md:grid-cols-2">
-          {showcaseItems.map(({ study, stars, forks, rank, hasLiveApp }) => {
-            const displayHost = study.liveUrl.replace(/^https?:\/\//, '').replace(/\/$/, '');
-            return (
-              <motion.article
-                key={study.id}
-                data-testid="flagship-card"
-                whileHover={{ y: -2 }}
-                transition={{ duration: 0.16, ease: WORK_EASE }}
-                onPointerMove={(e) => {
-                  const rect = e.currentTarget.getBoundingClientRect();
-                  e.currentTarget.style.setProperty('--spot-x', `${e.clientX - rect.left}px`);
-                  e.currentTarget.style.setProperty('--spot-y', `${e.clientY - rect.top}px`);
-                }}
-                className="surface-panel group relative flex flex-col justify-between overflow-hidden p-6 transition-all duration-150 hover:border-[var(--brand-accent)]/60 hover:shadow-xs"
-              >
-                <div
-                  aria-hidden="true"
-                  className="pointer-events-none absolute inset-0 opacity-0 transition-opacity duration-200 group-hover:opacity-100"
-                  style={{
-                    background:
-                      'radial-gradient(380px circle at var(--spot-x, 50%) var(--spot-y, 50%), color-mix(in oklab, var(--brand-accent) 13%, transparent), transparent 65%)',
-                  }}
-                />
-                <div className="relative z-10">
-                  <div className="flex items-center justify-between gap-3">
-                    <div className="flex flex-wrap items-center gap-x-2 gap-y-1 text-xs font-medium text-[var(--brand-muted)]">
-                      <span className="font-mono font-semibold text-[var(--brand-fg)]">
-                        #{rank}
-                      </span>
-                      <span aria-hidden="true">·</span>
-                      <span>{study.category}</span>
-                      <span aria-hidden="true">·</span>
-                      <span className="font-semibold text-[var(--brand-accent-ink)]">
-                        {study.impactMetric}
-                      </span>
-                    </div>
-
-                    <div className="flex items-center gap-3 shrink-0 font-mono text-xs tabular-nums">
-                      <span className="inline-flex items-center gap-1 font-semibold text-[var(--brand-amber)]">
-                        <Star className="h-3.5 w-3.5 fill-current" aria-hidden="true" />
-                        {stars}
-                      </span>
-                      <span className="inline-flex items-center gap-1 text-[var(--brand-muted)]">
-                        <GitFork className="h-3.5 w-3.5" aria-hidden="true" />
-                        {forks}
-                      </span>
-                    </div>
-                  </div>
-
-                  <h3 className="mt-3.5 font-display text-xl font-bold tracking-tight text-[var(--brand-fg)]">
-                    {study.title}
-                  </h3>
-
-                  <p className="mt-2 line-clamp-2 text-sm leading-relaxed text-[var(--brand-muted)]">
-                    {study.summary}
-                  </p>
-
-                  <div className="mt-4 flex flex-wrap items-center gap-x-2 gap-y-1 font-mono text-xs text-[var(--brand-muted)]">
-                    <span>{study.stack.join(' · ')}</span>
-                    {hasLiveApp && (
-                      <>
-                        <span aria-hidden="true">·</span>
-                        <span className="truncate text-[var(--brand-fg)]">
-                          {displayHost}
-                        </span>
-                      </>
-                    )}
-                  </div>
-                </div>
-
-                <div className="relative z-10 mt-6 flex flex-wrap items-center justify-between gap-3 border-t border-[var(--brand-border-subtle)] pt-4">
-                  <div className="flex items-center gap-2">
-                    {hasLiveApp ? (
-                      <>
-                        <a
-                          href={study.liveUrl}
-                          target="_blank"
-                          rel="noopener noreferrer"
-                          className="btn-primary min-h-[38px] gap-1.5 px-3.5 py-1.5 text-xs"
-                        >
-                          Launch Live App
-                          <ArrowUpRight className="h-3.5 w-3.5" aria-hidden="true" />
-                        </a>
-                        {!study.hideSource && study.repoUrl && (
-                          <a
-                            href={study.repoUrl}
-                            target="_blank"
-                            rel="noopener noreferrer"
-                            className="btn-secondary min-h-[38px] gap-1.5 px-3.5 py-1.5 text-xs"
-                          >
-                            Source
-                          </a>
-                        )}
-                      </>
-                    ) : (
-                      <a
-                        href={study.repoUrl}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="btn-primary min-h-[38px] gap-1.5 px-3.5 py-1.5 text-xs"
-                      >
-                        Explore Repository
-                        <ArrowUpRight className="h-3.5 w-3.5" aria-hidden="true" />
-                      </a>
-                    )}
-                  </div>
-
-                  <button
-                    type="button"
-                    onClick={() => setActiveStudy(study)}
-                    className="btn-ghost min-h-[38px] gap-1 px-2.5 py-1.5 text-xs font-semibold"
-                  >
-                    Architecture
-                  </button>
-                </div>
-              </motion.article>
-            );
-          })}
+          {showcaseItems.map((item) => (
+            <FlagshipCard
+              key={item.study.id}
+              item={item}
+              onSelect={setActiveStudy}
+            />
+          ))}
         </div>
       </div>
 

@@ -27,6 +27,7 @@ import {
   selectTopStarredRepos,
   sortRepos,
 } from '../utils/githubLogic';
+import { triggerCategoryWave, triggerCopyWave } from '../utils/distortionTransition';
 
 interface ProjectsExplorerProps {
   repos: GitHubRepo[];
@@ -146,14 +147,18 @@ export function ProjectsExplorer({
     [filteredRepos, page]
   );
 
-  const handleCopyClone = (repo: GitHubRepo) => {
-    navigator.clipboard
-      .writeText(repo.clone_url)
-      .then(() => {
+  const handleCopyClone = (repo: GitHubRepo, e?: React.MouseEvent<HTMLButtonElement>) => {
+    if (e) {
+      triggerCopyWave(e.currentTarget, () => {
         setCopiedId(repo.id);
-        setTimeout(() => setCopiedId(null), 1800);
-      })
+      }, e);
+    } else {
+      setCopiedId(repo.id);
+    }
+    navigator.clipboard
+      ?.writeText(repo.clone_url)
       .catch(() => {});
+    setTimeout(() => setCopiedId(null), 1800);
   };
 
   const resetFilters = () => {
@@ -284,7 +289,7 @@ export function ProjectsExplorer({
 
           <button
             type="button"
-            onClick={() => handleCopyClone(repo)}
+            onClick={(e) => handleCopyClone(repo, e)}
             aria-label={`Copy clone URL for ${repo.name}`}
             className="btn-secondary min-h-[36px] gap-1.5 px-2.5 py-1.5 text-xs font-medium text-[var(--brand-muted)] hover:text-[var(--brand-fg)]"
           >
@@ -447,9 +452,11 @@ export function ProjectsExplorer({
                   type="button"
                   role="tab"
                   aria-selected={active}
-                  onClick={() => {
-                    setCategoryFilter(tab.id);
-                    setPage(1);
+                  onClick={(e) => {
+                    triggerCategoryWave(e.currentTarget, () => {
+                      setCategoryFilter(tab.id);
+                      setPage(1);
+                    }, e);
                   }}
                   className={`focus-ring inline-flex min-h-[36px] items-center gap-2 rounded-full border px-3.5 py-1.5 text-xs font-semibold transition-all whitespace-nowrap shrink-0 hover:-translate-y-0.5 active:translate-y-0 ${
                     active
