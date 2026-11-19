@@ -1,7 +1,6 @@
 import { ArrowRight, Check, Coffee, Copy, ExternalLink, Mail } from 'lucide-react';
 import { useState } from 'react';
 import { OATHANREX_CONTACT } from '../data/portfolioData';
-import { triggerCopyWave } from '../utils/distortionTransition';
 
 interface ContactSectionProps {
   onOpenProjectBrief: () => void;
@@ -10,13 +9,14 @@ interface ContactSectionProps {
 export function ContactSection({ onOpenProjectBrief }: ContactSectionProps) {
   const [copied, setCopied] = useState(false);
 
-  const handleCopyEmail = (e: React.MouseEvent<HTMLButtonElement>) => {
-    const btn = e.currentTarget;
-    triggerCopyWave(btn, () => {
+  const handleCopyEmail = async () => {
+    try {
+      await navigator.clipboard.writeText(OATHANREX_CONTACT.email);
       setCopied(true);
-    }, e);
-    navigator.clipboard?.writeText(OATHANREX_CONTACT.email).catch(() => {});
-    setTimeout(() => setCopied(false), 2400);
+      setTimeout(() => setCopied(false), 2400);
+    } catch {
+      // Fallback
+    }
   };
 
   return (

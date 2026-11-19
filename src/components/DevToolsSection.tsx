@@ -1,11 +1,10 @@
 import { Binary, Code2, Hash, Palette, ShieldCheck } from 'lucide-react';
-import { useRef, useState } from 'react';
+import { useState } from 'react';
 import { Base64Studio } from '../tools/Base64Studio';
 import { ColorLab } from '../tools/ColorLab';
 import { HashUuidGenerator } from '../tools/HashUuidGenerator';
 import { TextTransformer } from '../tools/TextTransformer';
 import { DEV_TOOLS_CATALOG, type DevToolId } from '../tools/types';
-import { triggerPixelWave } from '../utils/distortionTransition';
 
 const TOOL_ICONS: Record<DevToolId, React.ComponentType<{ className?: string }>> = {
   base64: Binary,
@@ -16,18 +15,6 @@ const TOOL_ICONS: Record<DevToolId, React.ComponentType<{ className?: string }>>
 
 export function DevToolsSection() {
   const [activeTool, setActiveTool] = useState<DevToolId>('base64');
-  const toolContainerRef = useRef<HTMLDivElement | null>(null);
-
-  const handleSelectTool = (id: DevToolId, e: React.MouseEvent<HTMLButtonElement>) => {
-    if (id === activeTool) return;
-    if (toolContainerRef.current) {
-      triggerPixelWave(toolContainerRef.current, () => {
-        setActiveTool(id);
-      }, e);
-    } else {
-      setActiveTool(id);
-    }
-  };
 
   const currentToolMeta = DEV_TOOLS_CATALOG.find((t) => t.id === activeTool) || DEV_TOOLS_CATALOG[0];
 
@@ -68,7 +55,7 @@ export function DevToolsSection() {
                   <button
                     key={tool.id}
                     type="button"
-                    onClick={(e) => handleSelectTool(tool.id, e)}
+                    onClick={() => setActiveTool(tool.id)}
                     className={`flex items-center gap-2.5 rounded-xl px-4 py-2.5 text-xs font-semibold whitespace-nowrap transition-all ${
                       isActive
                         ? 'bg-[var(--brand-card-bg)] text-[var(--brand-fg)] shadow-xs ring-1 ring-[var(--brand-border)]'
@@ -93,7 +80,7 @@ export function DevToolsSection() {
           </div>
 
           {/* Active Tool Workspace */}
-          <div ref={toolContainerRef} className="p-6 sm:p-8">
+          <div className="p-6 sm:p-8">
             <div className="mb-6 flex flex-wrap items-center justify-between gap-3 border-b border-[var(--brand-border)]/60 pb-4">
               <div>
                 <h3 className="text-base font-bold text-[var(--brand-fg)]">{currentToolMeta.title}</h3>
