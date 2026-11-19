@@ -2,6 +2,7 @@ import { Keyboard, Menu, Moon, Search, Sun, X } from 'lucide-react';
 import { motion, useScroll, useSpring } from 'motion/react';
 import { useEffect, useState } from 'react';
 import { BrandLogo } from '../ui/BrandLogo';
+import { triggerThemeWave } from '../utils/distortionTransition';
 
 interface NavbarProps {
   onOpenProjectBrief: () => void;
@@ -152,13 +153,16 @@ export function Navbar({
             <Keyboard className="h-4 w-4" aria-hidden="true" />
           </button>
 
-          {/* Theme Toggle Pill */}
+          {/* Theme Toggle Pill with Distortion Wave (Save/Saved effect) */}
           <button
             type="button"
-            onClick={onToggleTheme}
+            id="themeToggleBtn"
+            onClick={(e) => {
+              triggerThemeWave(e.currentTarget, onToggleTheme, e);
+            }}
             aria-label={`Switch to ${theme === 'dark' ? 'light' : 'dark'} theme`}
             title={`Toggle theme (T) · Currently ${theme === 'dark' ? 'Dark' : 'Light'}`}
-            className="btn-icon h-9 w-9 text-[var(--brand-muted)] hover:text-[var(--brand-fg)]"
+            className="btn-icon h-9 w-9 text-[var(--brand-muted)] hover:text-[var(--brand-fg)] relative"
           >
             {theme === 'dark' ? (
               <Sun className="h-4 w-4" aria-hidden="true" />
@@ -257,7 +261,9 @@ export function Navbar({
 
               <button
                 type="button"
-                onClick={onToggleTheme}
+                onClick={(e) => {
+                  triggerThemeWave(e.currentTarget, onToggleTheme, e);
+                }}
                 className="btn-secondary flex-1 min-h-[40px] px-3 text-xs gap-1.5"
               >
                 {theme === 'dark' ? (

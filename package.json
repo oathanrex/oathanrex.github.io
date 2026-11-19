@@ -15,6 +15,7 @@
     "@tailwindcss/vite": "^4.3.3",
     "@types/three": "^0.187.0",
     "@vitejs/plugin-react": "^6.1.1",
+    "distortion-wave": "^0.4.0",
     "lucide-react": "^0.546.0",
     "motion": "^12.23.24",
     "react": "^19.0.1",
